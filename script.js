@@ -1,19 +1,42 @@
-// Generate a random Offer ID
+// ===============================
+// CRODYTO OFFER LETTER GENERATOR
+// ===============================
+
+
+let uploadedSignature = "";
+
+
+// ===============================
+// GENERATE OFFER ID
+// ===============================
+
 function generateOfferId() {
 
-  const randomNumber =
-    Math.floor(1000 + Math.random() * 9000);
+  const year =
+    new Date().getFullYear();
 
-  return "CRO-" + randomNumber;
+  const random =
+    Math.floor(
+      1000 + Math.random() * 9000
+    );
+
+  return `CRO-${year}-${random}`;
+
 }
 
 
-// Format Date
-function formatDate(dateValue) {
+// ===============================
+// FORMAT DATE
+// ===============================
 
-  if (!dateValue) return "—";
+function formatDate(value) {
 
-  const date = new Date(dateValue);
+  if (!value) {
+    return "—";
+  }
+
+  const date =
+    new Date(value + "T00:00:00");
 
   return date.toLocaleDateString(
     "en-IN",
@@ -27,190 +50,596 @@ function formatDate(dateValue) {
 }
 
 
-// Current Date
-function setCurrentDate() {
+// ===============================
+// GET VALUE
+// ===============================
 
-  const today = new Date();
+function getValue(id, fallback = "—") {
 
-  document.getElementById(
-    "currentDate"
-  ).innerText =
-    today.toLocaleDateString(
-      "en-IN",
-      {
-        day: "numeric",
-        month: "long",
-        year: "numeric"
-      }
-    );
+  const element =
+    document.getElementById(id);
+
+  if (!element) {
+    return fallback;
+  }
+
+  return element.value.trim() || fallback;
 
 }
 
 
-// Generate Offer Letter
+// ===============================
+// SET TEXT
+// ===============================
+
+function setText(id, value) {
+
+  const element =
+    document.getElementById(id);
+
+  if (element) {
+    element.textContent = value;
+  }
+
+}
+
+
+// ===============================
+// GENERATE LETTER
+// ===============================
+
 function generateLetter() {
 
   const name =
-    document.getElementById("name").value
-    || "Candidate";
+    getValue("name", "Candidate");
 
   const position =
-    document.getElementById("position").value
-    || "Position";
+    getValue("position");
 
   const department =
-    document.getElementById("department").value
-    || "Department";
+    getValue("department");
 
   const employmentType =
-    document.getElementById("employmentType").value;
+    getValue("employmentType");
+
+  const paymentType =
+    getValue("paymentType");
 
   const salary =
-    document.getElementById("salary").value
-    || "—";
+    getValue("salary");
 
   const joiningDate =
-    document.getElementById("joiningDate").value;
+    getValue("joiningDate");
+
+  const duration =
+    getValue("duration");
+
+  const workMode =
+    getValue("workMode");
 
   const location =
-    document.getElementById("location").value
-    || "—";
+    getValue("location");
+
+  const workingHours =
+    getValue("workingHours");
+
+  const workingDays =
+    getValue("workingDays");
+
+  const reportingManager =
+    getValue("reportingManager");
+
+  const noticePeriod =
+    getValue("noticePeriod");
+
+  const offerDate =
+    getValue("offerDate");
+
+  const validUntil =
+    getValue("validUntil");
 
   const hrName =
-    document.getElementById("hrName").value
-    || "HR / Authorized Person";
+    getValue(
+      "hrName",
+      "Authorized Person"
+    );
 
-  const terms =
-    document.getElementById("terms").value;
+  const hrDesignation =
+    getValue(
+      "hrDesignation",
+      "HR / Authorized Representative"
+    );
 
-
-  // Update Preview
-
-  document.getElementById(
-    "previewName"
-  ).innerText = name;
-
-
-  document.getElementById(
-    "previewPosition"
-  ).innerText = position;
-
-
-  document.getElementById(
-    "previewDepartment"
-  ).innerText = department;
+  const customTerms =
+    getValue(
+      "customTerms",
+      "No additional terms have been specified."
+    );
 
 
-  document.getElementById(
-    "previewEmployment"
-  ).innerText = employmentType;
+  // OFFER ID
+
+  setText(
+    "offerId",
+    generateOfferId()
+  );
 
 
-  document.getElementById(
-    "detailPosition"
-  ).innerText = position;
+  // CANDIDATE
+
+  setText(
+    "previewName",
+    name
+  );
+
+  setText(
+    "candidateNameSignature",
+    name
+  );
 
 
-  document.getElementById(
-    "detailDepartment"
-  ).innerText = department;
+  // JOB
+
+  setText(
+    "previewPosition",
+    position
+  );
+
+  setText(
+    "previewDepartment",
+    department
+  );
+
+  setText(
+    "previewEmploymentType",
+    employmentType
+  );
 
 
-  document.getElementById(
-    "detailSalary"
-  ).innerText = salary;
+  // SUMMARY
+
+  setText(
+    "summaryPosition",
+    position
+  );
+
+  setText(
+    "summaryDepartment",
+    department
+  );
+
+  setText(
+    "summaryEmployment",
+    employmentType
+  );
 
 
-  document.getElementById(
-    "detailJoiningDate"
-  ).innerText =
-    formatDate(joiningDate);
+  // PAYMENT TEXT
 
+  let compensationText = "";
 
-  document.getElementById(
-    "detailLocation"
-  ).innerText = location;
+  if (
+    paymentType === "Unpaid"
+  ) {
 
+    compensationText =
+      "Unpaid Internship / Engagement";
 
-  document.getElementById(
-    "previewHrName"
-  ).innerText = hrName;
+    setText(
+      "paymentParagraph",
+      "This is an unpaid engagement. No salary or stipend will be provided unless otherwise agreed by Crodyto in writing."
+    );
 
+  } else {
 
-  if (terms.trim() !== "") {
+    compensationText =
+      salary;
 
-    document.getElementById(
-      "previewTerms"
-    ).innerText = terms;
+    setText(
+      "paymentParagraph",
+      `This position is classified as a paid ${employmentType.toLowerCase()} role. Your agreed compensation will be ${salary}, subject to applicable terms, attendance, and company policies.`
+    );
 
   }
 
 
-  // Generate Offer ID
-
-  document.getElementById(
-    "offerId"
-  ).innerText =
-    generateOfferId();
+  setText(
+    "summarySalary",
+    compensationText
+  );
 
 
-  // Save Data
+  // JOINING
 
-  const offerData = {
+  setText(
+    "summaryJoining",
+    formatDate(joiningDate)
+  );
 
-    name,
-    position,
-    department,
-    employmentType,
-    salary,
-    joiningDate,
-    location,
-    hrName,
-    terms
+  setText(
+    "textJoiningDate",
+    formatDate(joiningDate)
+  );
+
+
+  // DURATION
+
+  setText(
+    "summaryDuration",
+    duration
+  );
+
+
+  // EMPLOYMENT
+
+  setText(
+    "textEmploymentType",
+    employmentType
+  );
+
+
+  // REPORTING
+
+  setText(
+    "previewReportingManager",
+    reportingManager
+  );
+
+
+  // WORK DETAILS
+
+  setText(
+    "detailWorkMode",
+    workMode
+  );
+
+  setText(
+    "detailLocation",
+    location
+  );
+
+  setText(
+    "detailWorkingHours",
+    workingHours
+  );
+
+  setText(
+    "detailWorkingDays",
+    workingDays
+  );
+
+  setText(
+    "detailNoticePeriod",
+    noticePeriod
+  );
+
+
+  // NOTICE PERIOD
+
+  setText(
+    "previewNoticePeriod",
+    noticePeriod
+  );
+
+
+  // TERMS
+
+  setText(
+    "previewCustomTerms",
+    customTerms
+  );
+
+
+  // HR
+
+  setText(
+    "previewHrName",
+    hrName
+  );
+
+  setText(
+    "previewHrDesignation",
+    hrDesignation
+  );
+
+
+  // DATES
+
+  setText(
+    "previewOfferDate",
+    formatDate(offerDate)
+  );
+
+  setText(
+    "letterDate",
+    formatDate(offerDate)
+  );
+
+  setText(
+    "previewValidUntil",
+    formatDate(validUntil)
+  );
+
+
+  // SAVE DATA
+
+  saveData();
+
+  alert(
+    "Crodyto Offer Letter Generated Successfully!"
+  );
+
+}
+
+
+// ===============================
+// SIGNATURE UPLOAD
+// ===============================
+
+document
+  .getElementById("signatureUpload")
+  .addEventListener(
+    "change",
+    function (event) {
+
+      const file =
+        event.target.files[0];
+
+      if (!file) {
+        return;
+      }
+
+      const reader =
+        new FileReader();
+
+      reader.onload =
+        function (e) {
+
+          uploadedSignature =
+            e.target.result;
+
+          const preview =
+            document.getElementById(
+              "signaturePreview"
+            );
+
+          preview.src =
+            uploadedSignature;
+
+          preview.style.display =
+            "block";
+
+        };
+
+      reader.readAsDataURL(
+        file
+      );
+
+    }
+  );
+
+
+// ===============================
+// SAVE DATA
+// ===============================
+
+function saveData() {
+
+  const data = {
+
+    name: getValue("name", ""),
+    email: getValue("email", ""),
+    phone: getValue("phone", ""),
+
+    offerDate:
+      document.getElementById(
+        "offerDate"
+      ).value,
+
+    position:
+      getValue("position", ""),
+
+    department:
+      getValue("department", ""),
+
+    employmentType:
+      getValue("employmentType", ""),
+
+    paymentType:
+      getValue("paymentType", ""),
+
+    salary:
+      getValue("salary", ""),
+
+    joiningDate:
+      document.getElementById(
+        "joiningDate"
+      ).value,
+
+    duration:
+      getValue("duration", ""),
+
+    workMode:
+      getValue("workMode", ""),
+
+    location:
+      getValue("location", ""),
+
+    workingHours:
+      getValue("workingHours", ""),
+
+    workingDays:
+      getValue("workingDays", ""),
+
+    reportingManager:
+      getValue(
+        "reportingManager",
+        ""
+      ),
+
+    noticePeriod:
+      getValue(
+        "noticePeriod",
+        ""
+      ),
+
+    validUntil:
+      document.getElementById(
+        "validUntil"
+      ).value,
+
+    customTerms:
+      getValue(
+        "customTerms",
+        ""
+      ),
+
+    hrName:
+      getValue(
+        "hrName",
+        ""
+      ),
+
+    hrDesignation:
+      getValue(
+        "hrDesignation",
+        ""
+      ),
+
+    signature:
+      uploadedSignature
 
   };
 
 
   localStorage.setItem(
-    "crodytoOfferLetter",
-    JSON.stringify(offerData)
-  );
-
-
-  alert(
-    "Offer Letter Generated Successfully!"
+    "crodytoOfferLetterData",
+    JSON.stringify(data)
   );
 
 }
 
 
-// Clear Form
+// ===============================
+// LOAD SAVED DATA
+// ===============================
+
+function loadSavedData() {
+
+  const saved =
+    localStorage.getItem(
+      "crodytoOfferLetterData"
+    );
+
+  if (!saved) {
+    return;
+  }
+
+  const data =
+    JSON.parse(saved);
+
+
+  Object.keys(data).forEach(
+    function (key) {
+
+      const element =
+        document.getElementById(key);
+
+      if (
+        element &&
+        key !== "signature"
+      ) {
+
+        element.value =
+          data[key];
+
+      }
+
+    }
+  );
+
+
+  if (data.signature) {
+
+    uploadedSignature =
+      data.signature;
+
+    const preview =
+      document.getElementById(
+        "signaturePreview"
+      );
+
+    preview.src =
+      uploadedSignature;
+
+    preview.style.display =
+      "block";
+
+  }
+
+
+  generateLetter();
+
+}
+
+
+// ===============================
+// CLEAR FORM
+// ===============================
 
 function clearForm() {
 
-  document
-    .querySelector("form");
-
   const inputs =
     document.querySelectorAll(
-      "input, textarea"
+      "input:not([type='file']), textarea"
     );
 
-
-  inputs.forEach(input => {
-
-    input.value = "";
-
-  });
+  inputs.forEach(
+    input => {
+      input.value = "";
+    }
+  );
 
 
   document.getElementById(
     "employmentType"
-  ).selectedIndex = 0;
+  ).value =
+    "Internship";
+
+
+  document.getElementById(
+    "paymentType"
+  ).value =
+    "Paid";
+
+
+  document.getElementById(
+    "workMode"
+  ).value =
+    "Remote";
+
+
+  document.getElementById(
+    "signatureUpload"
+  ).value = "";
+
+
+  uploadedSignature = "";
+
+
+  const signaturePreview =
+    document.getElementById(
+      "signaturePreview"
+    );
+
+  signaturePreview.src = "";
+
+  signaturePreview.style.display =
+    "none";
 
 
   localStorage.removeItem(
-    "crodytoOfferLetter"
+    "crodytoOfferLetterData"
   );
 
 
@@ -219,7 +648,9 @@ function clearForm() {
 }
 
 
-// Print Letter
+// ===============================
+// PRINT / PDF
+// ===============================
 
 function printLetter() {
 
@@ -228,81 +659,26 @@ function printLetter() {
 }
 
 
-// Load saved data
+// ===============================
+// INITIALIZATION
+// ===============================
 
-function loadSavedData() {
+window.addEventListener(
+  "DOMContentLoaded",
+  function () {
 
-  const savedData =
-    localStorage.getItem(
-      "crodytoOfferLetter"
-    );
-
-
-  if (!savedData) return;
-
-
-  const data =
-    JSON.parse(savedData);
+    const today =
+      new Date()
+        .toISOString()
+        .split("T")[0];
 
 
-  document.getElementById(
-    "name"
-  ).value = data.name || "";
+    document.getElementById(
+      "offerDate"
+    ).value = today;
 
 
-  document.getElementById(
-    "position"
-  ).value = data.position || "";
+    loadSavedData();
 
-
-  document.getElementById(
-    "department"
-  ).value = data.department || "";
-
-
-  document.getElementById(
-    "employmentType"
-  ).value =
-    data.employmentType
-    || "Internship";
-
-
-  document.getElementById(
-    "salary"
-  ).value = data.salary || "";
-
-
-  document.getElementById(
-    "joiningDate"
-  ).value =
-    data.joiningDate || "";
-
-
-  document.getElementById(
-    "location"
-  ).value =
-    data.location || "";
-
-
-  document.getElementById(
-    "hrName"
-  ).value =
-    data.hrName || "";
-
-
-  document.getElementById(
-    "terms"
-  ).value =
-    data.terms || "";
-
-
-  generateLetter();
-
-}
-
-
-// Initialize
-
-setCurrentDate();
-
-loadSavedData();
+  }
+);
