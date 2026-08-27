@@ -1,14 +1,37 @@
-// ===============================
+// ==========================================
 // CRODYTO OFFER LETTER GENERATOR
-// ===============================
+// ==========================================
 
 
 let uploadedSignature = "";
 
 
-// ===============================
+// ==========================================
+// ELEMENTS
+// ==========================================
+
+const paymentType =
+  document.getElementById("paymentType");
+
+const salaryInput =
+  document.getElementById("salary");
+
+const generateBtn =
+  document.getElementById("generateBtn");
+
+const clearBtn =
+  document.getElementById("clearBtn");
+
+const printBtn =
+  document.getElementById("printBtn");
+
+const signatureUpload =
+  document.getElementById("signatureUpload");
+
+
+// ==========================================
 // GENERATE OFFER ID
-// ===============================
+// ==========================================
 
 function generateOfferId() {
 
@@ -25,9 +48,9 @@ function generateOfferId() {
 }
 
 
-// ===============================
+// ==========================================
 // FORMAT DATE
-// ===============================
+// ==========================================
 
 function formatDate(value) {
 
@@ -50,9 +73,9 @@ function formatDate(value) {
 }
 
 
-// ===============================
+// ==========================================
 // GET VALUE
-// ===============================
+// ==========================================
 
 function getValue(id, fallback = "—") {
 
@@ -68,9 +91,9 @@ function getValue(id, fallback = "—") {
 }
 
 
-// ===============================
+// ==========================================
 // SET TEXT
-// ===============================
+// ==========================================
 
 function setText(id, value) {
 
@@ -84,9 +107,48 @@ function setText(id, value) {
 }
 
 
-// ===============================
+// ==========================================
+// PAID / UNPAID TOGGLE
+// ==========================================
+
+function toggleSalaryField() {
+
+  if (paymentType.value === "Unpaid") {
+
+    salaryInput.value = "";
+
+    salaryInput.disabled = true;
+
+    salaryInput.placeholder =
+      "Not applicable for unpaid role";
+
+  } else {
+
+    salaryInput.disabled = false;
+
+    salaryInput.placeholder =
+      "₹10,000 per month";
+
+  }
+
+}
+
+
+// Run when Payment Type changes
+
+paymentType.addEventListener(
+  "change",
+  function () {
+
+    toggleSalaryField();
+
+  }
+);
+
+
+// ==========================================
 // GENERATE LETTER
-// ===============================
+// ==========================================
 
 function generateLetter() {
 
@@ -102,14 +164,16 @@ function generateLetter() {
   const employmentType =
     getValue("employmentType");
 
-  const paymentType =
+  const payment =
     getValue("paymentType");
 
   const salary =
     getValue("salary");
 
   const joiningDate =
-    getValue("joiningDate");
+    document.getElementById(
+      "joiningDate"
+    ).value;
 
   const duration =
     getValue("duration");
@@ -133,10 +197,14 @@ function generateLetter() {
     getValue("noticePeriod");
 
   const offerDate =
-    getValue("offerDate");
+    document.getElementById(
+      "offerDate"
+    ).value;
 
   const validUntil =
-    getValue("validUntil");
+    document.getElementById(
+      "validUntil"
+    ).value;
 
   const hrName =
     getValue(
@@ -157,7 +225,9 @@ function generateLetter() {
     );
 
 
+  // ------------------------------------------
   // OFFER ID
+  // ------------------------------------------
 
   setText(
     "offerId",
@@ -165,7 +235,9 @@ function generateLetter() {
   );
 
 
+  // ------------------------------------------
   // CANDIDATE
+  // ------------------------------------------
 
   setText(
     "previewName",
@@ -178,7 +250,9 @@ function generateLetter() {
   );
 
 
-  // JOB
+  // ------------------------------------------
+  // JOB DETAILS
+  // ------------------------------------------
 
   setText(
     "previewPosition",
@@ -196,7 +270,9 @@ function generateLetter() {
   );
 
 
+  // ------------------------------------------
   // SUMMARY
+  // ------------------------------------------
 
   setText(
     "summaryPosition",
@@ -204,40 +280,43 @@ function generateLetter() {
   );
 
   setText(
-    "summaryDepartment",
-    department
-  );
-
-  setText(
     "summaryEmployment",
     employmentType
   );
 
+  setText(
+    "summaryDepartment",
+    department
+  );
 
-  // PAYMENT TEXT
 
-  let compensationText = "";
+  // ------------------------------------------
+  // PAID / UNPAID COMPENSATION
+  // ------------------------------------------
 
-  if (
-    paymentType === "Unpaid"
-  ) {
+  let compensationText;
+
+  if (payment === "Unpaid") {
 
     compensationText =
       "Unpaid Internship / Engagement";
 
     setText(
       "paymentParagraph",
-      "This is an unpaid engagement. No salary or stipend will be provided unless otherwise agreed by Crodyto in writing."
+      "This is an unpaid engagement. No salary or stipend will be provided for this position unless otherwise agreed by Crodyto in writing."
     );
 
   } else {
 
     compensationText =
-      salary;
+      salary !== "—"
+        ? salary
+        : "As per company policy";
+
 
     setText(
       "paymentParagraph",
-      `This position is classified as a paid ${employmentType.toLowerCase()} role. Your agreed compensation will be ${salary}, subject to applicable terms, attendance, and company policies.`
+      `This is a paid ${employmentType.toLowerCase()} position. The agreed salary or stipend for this role is ${compensationText}, subject to applicable company policies and agreed terms.`
     );
 
   }
@@ -249,7 +328,9 @@ function generateLetter() {
   );
 
 
-  // JOINING
+  // ------------------------------------------
+  // JOINING DATE
+  // ------------------------------------------
 
   setText(
     "summaryJoining",
@@ -262,7 +343,9 @@ function generateLetter() {
   );
 
 
+  // ------------------------------------------
   // DURATION
+  // ------------------------------------------
 
   setText(
     "summaryDuration",
@@ -270,7 +353,9 @@ function generateLetter() {
   );
 
 
-  // EMPLOYMENT
+  // ------------------------------------------
+  // EMPLOYMENT TYPE
+  // ------------------------------------------
 
   setText(
     "textEmploymentType",
@@ -278,7 +363,9 @@ function generateLetter() {
   );
 
 
-  // REPORTING
+  // ------------------------------------------
+  // REPORTING MANAGER
+  // ------------------------------------------
 
   setText(
     "previewReportingManager",
@@ -286,7 +373,9 @@ function generateLetter() {
   );
 
 
+  // ------------------------------------------
   // WORK DETAILS
+  // ------------------------------------------
 
   setText(
     "detailWorkMode",
@@ -314,7 +403,9 @@ function generateLetter() {
   );
 
 
+  // ------------------------------------------
   // NOTICE PERIOD
+  // ------------------------------------------
 
   setText(
     "previewNoticePeriod",
@@ -322,7 +413,9 @@ function generateLetter() {
   );
 
 
-  // TERMS
+  // ------------------------------------------
+  // CUSTOM TERMS
+  // ------------------------------------------
 
   setText(
     "previewCustomTerms",
@@ -330,7 +423,9 @@ function generateLetter() {
   );
 
 
-  // HR
+  // ------------------------------------------
+  // HR DETAILS
+  // ------------------------------------------
 
   setText(
     "previewHrName",
@@ -343,7 +438,9 @@ function generateLetter() {
   );
 
 
+  // ------------------------------------------
   // DATES
+  // ------------------------------------------
 
   setText(
     "previewOfferDate",
@@ -361,75 +458,85 @@ function generateLetter() {
   );
 
 
+  // ------------------------------------------
   // SAVE DATA
+  // ------------------------------------------
 
   saveData();
 
+
   alert(
-    "Crodyto Offer Letter Generated Successfully!"
+    "Offer Letter Generated Successfully!"
   );
 
 }
 
 
-// ===============================
-// SIGNATURE UPLOAD
-// ===============================
+// ==========================================
+// HR SIGNATURE UPLOAD
+// ==========================================
 
-document
-  .getElementById("signatureUpload")
-  .addEventListener(
-    "change",
-    function (event) {
+signatureUpload.addEventListener(
+  "change",
+  function (event) {
 
-      const file =
-        event.target.files[0];
+    const file =
+      event.target.files[0];
 
-      if (!file) {
-        return;
-      }
-
-      const reader =
-        new FileReader();
-
-      reader.onload =
-        function (e) {
-
-          uploadedSignature =
-            e.target.result;
-
-          const preview =
-            document.getElementById(
-              "signaturePreview"
-            );
-
-          preview.src =
-            uploadedSignature;
-
-          preview.style.display =
-            "block";
-
-        };
-
-      reader.readAsDataURL(
-        file
-      );
-
+    if (!file) {
+      return;
     }
-  );
+
+    const reader =
+      new FileReader();
+
+    reader.onload =
+      function (e) {
+
+        uploadedSignature =
+          e.target.result;
+
+        const preview =
+          document.getElementById(
+            "signaturePreview"
+          );
+
+        preview.src =
+          uploadedSignature;
+
+        preview.style.display =
+          "block";
+
+      };
+
+    reader.readAsDataURL(file);
+
+  }
+);
 
 
-// ===============================
+// ==========================================
 // SAVE DATA
-// ===============================
+// ==========================================
 
 function saveData() {
 
   const data = {
 
-    name: getValue("name", ""),
-    email: getValue("email", ""),
-    phone: getValue("phone", ""),
+    name:
+      document.getElementById(
+        "name"
+      ).value,
+
+    email:
+      document.getElementById(
+        "email"
+      ).value,
+
+    phone:
+      document.getElementById(
+        "phone"
+      ).value,
 
     offerDate:
       document.getElementById(
@@ -437,19 +544,29 @@ function saveData() {
       ).value,
 
     position:
-      getValue("position", ""),
+      document.getElementById(
+        "position"
+      ).value,
 
     department:
-      getValue("department", ""),
+      document.getElementById(
+        "department"
+      ).value,
 
     employmentType:
-      getValue("employmentType", ""),
+      document.getElementById(
+        "employmentType"
+      ).value,
 
     paymentType:
-      getValue("paymentType", ""),
+      document.getElementById(
+        "paymentType"
+      ).value,
 
     salary:
-      getValue("salary", ""),
+      document.getElementById(
+        "salary"
+      ).value,
 
     joiningDate:
       document.getElementById(
@@ -457,31 +574,39 @@ function saveData() {
       ).value,
 
     duration:
-      getValue("duration", ""),
+      document.getElementById(
+        "duration"
+      ).value,
 
     workMode:
-      getValue("workMode", ""),
+      document.getElementById(
+        "workMode"
+      ).value,
 
     location:
-      getValue("location", ""),
+      document.getElementById(
+        "location"
+      ).value,
 
     workingHours:
-      getValue("workingHours", ""),
+      document.getElementById(
+        "workingHours"
+      ).value,
 
     workingDays:
-      getValue("workingDays", ""),
+      document.getElementById(
+        "workingDays"
+      ).value,
 
     reportingManager:
-      getValue(
-        "reportingManager",
-        ""
-      ),
+      document.getElementById(
+        "reportingManager"
+      ).value,
 
     noticePeriod:
-      getValue(
-        "noticePeriod",
-        ""
-      ),
+      document.getElementById(
+        "noticePeriod"
+      ).value,
 
     validUntil:
       document.getElementById(
@@ -489,22 +614,19 @@ function saveData() {
       ).value,
 
     customTerms:
-      getValue(
-        "customTerms",
-        ""
-      ),
+      document.getElementById(
+        "customTerms"
+      ).value,
 
     hrName:
-      getValue(
-        "hrName",
-        ""
-      ),
+      document.getElementById(
+        "hrName"
+      ).value,
 
     hrDesignation:
-      getValue(
-        "hrDesignation",
-        ""
-      ),
+      document.getElementById(
+        "hrDesignation"
+      ).value,
 
     signature:
       uploadedSignature
@@ -520,23 +642,24 @@ function saveData() {
 }
 
 
-// ===============================
+// ==========================================
 // LOAD SAVED DATA
-// ===============================
+// ==========================================
 
 function loadSavedData() {
 
-  const saved =
+  const savedData =
     localStorage.getItem(
       "crodytoOfferLetterData"
     );
 
-  if (!saved) {
+  if (!savedData) {
     return;
   }
 
+
   const data =
-    JSON.parse(saved);
+    JSON.parse(savedData);
 
 
   Object.keys(data).forEach(
@@ -578,14 +701,16 @@ function loadSavedData() {
   }
 
 
+  toggleSalaryField();
+
   generateLetter();
 
 }
 
 
-// ===============================
+// ==========================================
 // CLEAR FORM
-// ===============================
+// ==========================================
 
 function clearForm() {
 
@@ -594,9 +719,12 @@ function clearForm() {
       "input:not([type='file']), textarea"
     );
 
+
   inputs.forEach(
-    input => {
+    function (input) {
+
       input.value = "";
+
     }
   );
 
@@ -619,10 +747,7 @@ function clearForm() {
     "Remote";
 
 
-  document.getElementById(
-    "signatureUpload"
-  ).value = "";
-
+  signatureUpload.value = "";
 
   uploadedSignature = "";
 
@@ -643,25 +768,42 @@ function clearForm() {
   );
 
 
+  toggleSalaryField();
+
   generateLetter();
 
 }
 
 
-// ===============================
-// PRINT / PDF
-// ===============================
+// ==========================================
+// BUTTON EVENTS
+// ==========================================
 
-function printLetter() {
+generateBtn.addEventListener(
+  "click",
+  generateLetter
+);
 
-  window.print();
 
-}
+clearBtn.addEventListener(
+  "click",
+  clearForm
+);
 
 
-// ===============================
+printBtn.addEventListener(
+  "click",
+  function () {
+
+    window.print();
+
+  }
+);
+
+
+// ==========================================
 // INITIALIZATION
-// ===============================
+// ==========================================
 
 window.addEventListener(
   "DOMContentLoaded",
@@ -673,10 +815,19 @@ window.addEventListener(
         .split("T")[0];
 
 
+    // Set today's date
+
     document.getElementById(
       "offerDate"
     ).value = today;
 
+
+    // Setup Paid / Unpaid field
+
+    toggleSalaryField();
+
+
+    // Load previous data
 
     loadSavedData();
 
