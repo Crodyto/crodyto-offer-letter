@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Crodyto | Offer Letter Generator</title>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo">C</div>
+
+      <div>
+        <h2>Crodyto</h2>
+        <span>Offer Letter Generator</span>
+      </div>
+    </div>
+
+    <div class="status">
+      ● HR Dashboard
+    </div>
+  </header>
+
+
+  <main class="app-container">
+
+    <!-- FORM SECTION -->
+    <section class="form-panel">
+
+      <div class="section-heading">
+        <h2>Candidate Details</h2>
+        <p>Fill in the employee information.</p>
+      </div>
+
+
+      <div class="form-group">
+        <label>Full Name</label>
+        <input
+          type="text"
+          id="name"
+          placeholder="Enter candidate name"
+        />
+      </div>
+
+
+      <div class="form-group">
+        <label>Email Address</label>
+        <input
+          type="email"
+          id="email"
+          placeholder="example@email.com"
+        />
+      </div>
+
+
+      <div class="form-row">
+
+        <div class="form-group">
+          <label>Job Position</label>
+          <input
+            type="text"
+            id="position"
+            placeholder="Frontend Developer"
+          />
+        </div>
+
+        <div class="form-group">
+          <label>Department</label>
+          <input
+            type="text"
+            id="department"
+            placeholder="Engineering"
+          />
+        </div>
+
+      </div>
+
+
+      <div class="form-row">
+
+        <div class="form-group">
+          <label>Employment Type</label>
+
+          <select id="employmentType">
+            <option value="Internship">Internship</option>
+            <option value="Full Time">Full Time</option>
+            <option value="Part Time">Part Time</option>
+            <option value="Contract">Contract</option>
+          </select>
+
+        </div>
+
+
+        <div class="form-group">
+          <label>Salary / Stipend</label>
+
+          <input
+            type="text"
+            id="salary"
+            placeholder="₹15,000 per month"
+          />
+
+        </div>
+
+      </div>
+
+
+      <div class="form-row">
+
+        <div class="form-group">
+          <label>Joining Date</label>
+
+          <input
+            type="date"
+            id="joiningDate"
+          />
+
+        </div>
+
+
+        <div class="form-group">
+          <label>Work Location</label>
+
+          <input
+            type="text"
+            id="location"
+            placeholder="Remote / Siliguri"
+          />
+
+        </div>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>HR / Authorized Person</label>
+
+        <input
+          type="text"
+          id="hrName"
+          placeholder="HR Manager"
+        />
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>Custom Terms (Optional)</label>
+
+        <textarea
+          id="terms"
+          rows="5"
+          placeholder="Enter any additional terms..."
+        ></textarea>
+
+      </div>
+
+
+      <div class="button-group">
+
+        <button class="generate-btn" onclick="generateLetter()">
+          Generate Offer Letter
+        </button>
+
+        <button class="clear-btn" onclick="clearForm()">
+          Clear
+        </button>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- PREVIEW SECTION -->
+
+    <section class="preview-wrapper">
+
+      <div class="preview-header">
+
+        <div>
+          <h2>Live Preview</h2>
+          <p>Your professional offer letter</p>
+        </div>
+
+        <button class="print-btn" onclick="printLetter()">
+          🖨 Print / Save PDF
+        </button>
+
+      </div>
+
+
+      <!-- OFFER LETTER -->
+
+      <div class="letter" id="offerLetter">
+
+
+        <div class="letter-header">
+
+          <div class="company-info">
+
+            <div class="company-logo">
+              C
+            </div>
+
+            <div>
+
+              <h1>Crodyto</h1>
+
+              <p>
+                IT Services & IT Consulting
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="letter-meta">
+
+            <p>
+              <strong>Offer ID:</strong>
+              <span id="offerId">
+                CRO-0001
+              </span>
+            </p>
+
+            <p>
+              <strong>Date:</strong>
+              <span id="currentDate"></span>
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="divider"></div>
+
+
+        <h2 class="letter-title">
+          OFFER LETTER
+        </h2>
+
+
+        <p class="greeting">
+
+          Dear
+          <strong id="previewName">
+            Candidate
+          </strong>,
+
+        </p>
+
+
+        <p>
+
+          We are delighted to offer you the position of
+
+          <strong id="previewPosition">
+            Position
+          </strong>
+
+          in the
+
+          <strong id="previewDepartment">
+            Department
+          </strong>
+
+          department at Crodyto.
+
+        </p>
+
+
+        <p>
+
+          Your employment type will be
+
+          <strong id="previewEmployment">
+            Employment Type
+          </strong>.
+
+        </p>
+
+
+        <div class="details-box">
+
+
+          <div class="detail-item">
+
+            <span>Position</span>
+
+            <strong id="detailPosition">
+              —
+            </strong>
+
+          </div>
+
+
+          <div class="detail-item">
+
+            <span>Department</span>
+
+            <strong id="detailDepartment">
+              —
+            </strong>
+
+          </div>
+
+
+          <div class="detail-item">
+
+            <span>Compensation</span>
+
+            <strong id="detailSalary">
+              —
+            </strong>
+
+          </div>
+
+
+          <div class="detail-item">
+
+            <span>Joining Date</span>
+
+            <strong id="detailJoiningDate">
+              —
+            </strong>
+
+          </div>
+
+
+          <div class="detail-item">
+
+            <span>Work Location</span>
+
+            <strong id="detailLocation">
+              —
+            </strong>
+
+          </div>
+
+
+        </div>
+
+
+        <p>
+
+          We believe that your skills and enthusiasm will make a valuable
+          contribution to our team. We are excited to have you join Crodyto
+          and look forward to working together.
+
+        </p>
+
+
+        <div class="terms-section">
+
+          <h3>
+            Terms & Conditions
+          </h3>
+
+          <p id="previewTerms">
+
+            This offer is subject to the terms and conditions of Crodyto.
+            You are expected to maintain professionalism, confidentiality,
+            and follow the company's policies and guidelines.
+
+          </p>
+
+        </div>
+
+
+        <p>
+
+          Please confirm your acceptance of this offer by signing and
+          returning a copy of this letter.
+
+        </p>
+
+
+        <div class="signature-section">
+
+
+          <div class="candidate-sign">
+
+            <div class="signature-line"></div>
+
+            <strong id="candidateSignature">
+              Candidate Signature
+            </strong>
+
+          </div>
+
+
+          <div class="company-sign">
+
+            <div class="signature-line"></div>
+
+            <strong id="previewHrName">
+              HR / Authorized Person
+            </strong>
+
+            <p>
+              Crodyto
+            </p>
+
+          </div>
+
+
+        </div>
+
+
+        <div class="letter-footer">
+
+          <strong>Crodyto</strong>
+
+          <span>
+            IT Services & IT Consulting
+          </span>
+
+        </div>
+
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <script src="script.js"></script>
+
+</body>
+</html>
