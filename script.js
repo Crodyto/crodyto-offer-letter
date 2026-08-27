@@ -3,6 +3,88 @@
 // ==========================================
 
 
+// ==========================================
+// SOFTWARE PASSWORD PROTECTION
+// ==========================================
+
+const SOFTWARE_PASSWORD = "741223741223";
+
+
+const lockScreen =
+  document.getElementById("lockScreen");
+
+const passwordInput =
+  document.getElementById("passwordInput");
+
+const unlockBtn =
+  document.getElementById("unlockBtn");
+
+const passwordError =
+  document.getElementById("passwordError");
+
+
+// Unlock software
+
+function unlockSoftware() {
+
+  const enteredPassword =
+    passwordInput.value.trim();
+
+
+  if (
+    enteredPassword === SOFTWARE_PASSWORD
+  ) {
+
+    lockScreen.classList.add(
+      "hidden"
+    );
+
+    passwordError.textContent = "";
+
+    passwordInput.value = "";
+
+  } else {
+
+    passwordError.textContent =
+      "Incorrect password. Please try again.";
+
+    passwordInput.value = "";
+
+    passwordInput.focus();
+
+  }
+
+}
+
+
+// Unlock button
+
+unlockBtn.addEventListener(
+  "click",
+  unlockSoftware
+);
+
+
+// Press Enter to unlock
+
+passwordInput.addEventListener(
+  "keydown",
+  function (event) {
+
+    if (event.key === "Enter") {
+
+      unlockSoftware();
+
+    }
+
+  }
+);
+
+
+// ==========================================
+// APP VARIABLES
+// ==========================================
+
 let uploadedSignature = "";
 
 
@@ -77,7 +159,10 @@ function formatDate(value) {
 // GET VALUE
 // ==========================================
 
-function getValue(id, fallback = "—") {
+function getValue(
+  id,
+  fallback = "—"
+) {
 
   const element =
     document.getElementById(id);
@@ -86,7 +171,10 @@ function getValue(id, fallback = "—") {
     return fallback;
   }
 
-  return element.value.trim() || fallback;
+  return (
+    element.value.trim() ||
+    fallback
+  );
 
 }
 
@@ -95,13 +183,19 @@ function getValue(id, fallback = "—") {
 // SET TEXT
 // ==========================================
 
-function setText(id, value) {
+function setText(
+  id,
+  value
+) {
 
   const element =
     document.getElementById(id);
 
   if (element) {
-    element.textContent = value;
+
+    element.textContent =
+      value;
+
   }
 
 }
@@ -113,7 +207,9 @@ function setText(id, value) {
 
 function toggleSalaryField() {
 
-  if (paymentType.value === "Unpaid") {
+  if (
+    paymentType.value === "Unpaid"
+  ) {
 
     salaryInput.value = "";
 
@@ -134,8 +230,6 @@ function toggleSalaryField() {
 }
 
 
-// Run when Payment Type changes
-
 paymentType.addEventListener(
   "change",
   function () {
@@ -147,13 +241,22 @@ paymentType.addEventListener(
 
 
 // ==========================================
-// GENERATE LETTER
+// GENERATE OFFER LETTER
 // ==========================================
 
 function generateLetter() {
 
+
+  // Candidate
+
   const name =
-    getValue("name", "Candidate");
+    getValue(
+      "name",
+      "Candidate"
+    );
+
+
+  // Job Details
 
   const position =
     getValue("position");
@@ -170,13 +273,32 @@ function generateLetter() {
   const salary =
     getValue("salary");
 
+
+  // Dates
+
   const joiningDate =
     document.getElementById(
       "joiningDate"
     ).value;
 
+  const offerDate =
+    document.getElementById(
+      "offerDate"
+    ).value;
+
+  const validUntil =
+    document.getElementById(
+      "validUntil"
+    ).value;
+
+
+  // Employment
+
   const duration =
     getValue("duration");
+
+
+  // Work
 
   const workMode =
     getValue("workMode");
@@ -191,20 +313,24 @@ function generateLetter() {
     getValue("workingDays");
 
   const reportingManager =
-    getValue("reportingManager");
+    getValue(
+      "reportingManager"
+    );
+
+
+  // Conditions
 
   const noticePeriod =
     getValue("noticePeriod");
 
-  const offerDate =
-    document.getElementById(
-      "offerDate"
-    ).value;
+  const customTerms =
+    getValue(
+      "customTerms",
+      "No additional terms have been specified."
+    );
 
-  const validUntil =
-    document.getElementById(
-      "validUntil"
-    ).value;
+
+  // HR
 
   const hrName =
     getValue(
@@ -216,12 +342,6 @@ function generateLetter() {
     getValue(
       "hrDesignation",
       "HR / Authorized Representative"
-    );
-
-  const customTerms =
-    getValue(
-      "customTerms",
-      "No additional terms have been specified."
     );
 
 
@@ -291,15 +411,19 @@ function generateLetter() {
 
 
   // ------------------------------------------
-  // PAID / UNPAID COMPENSATION
+  // PAYMENT
   // ------------------------------------------
 
   let compensationText;
 
-  if (payment === "Unpaid") {
+
+  if (
+    payment === "Unpaid"
+  ) {
 
     compensationText =
       "Unpaid Internship / Engagement";
+
 
     setText(
       "paymentParagraph",
@@ -397,15 +521,15 @@ function generateLetter() {
     workingDays
   );
 
-  setText(
-    "detailNoticePeriod",
-    noticePeriod
-  );
-
 
   // ------------------------------------------
   // NOTICE PERIOD
   // ------------------------------------------
+
+  setText(
+    "detailNoticePeriod",
+    noticePeriod
+  );
 
   setText(
     "previewNoticePeriod",
@@ -487,8 +611,10 @@ signatureUpload.addEventListener(
       return;
     }
 
+
     const reader =
       new FileReader();
+
 
     reader.onload =
       function (e) {
@@ -496,18 +622,22 @@ signatureUpload.addEventListener(
         uploadedSignature =
           e.target.result;
 
+
         const preview =
           document.getElementById(
             "signaturePreview"
           );
 
+
         preview.src =
           uploadedSignature;
+
 
         preview.style.display =
           "block";
 
       };
+
 
     reader.readAsDataURL(file);
 
@@ -653,6 +783,7 @@ function loadSavedData() {
       "crodytoOfferLetterData"
     );
 
+
   if (!savedData) {
     return;
   }
@@ -668,6 +799,7 @@ function loadSavedData() {
       const element =
         document.getElementById(key);
 
+
       if (
         element &&
         key !== "signature"
@@ -682,18 +814,23 @@ function loadSavedData() {
   );
 
 
+  // Restore signature
+
   if (data.signature) {
 
     uploadedSignature =
       data.signature;
+
 
     const preview =
       document.getElementById(
         "signaturePreview"
       );
 
+
     preview.src =
       uploadedSignature;
+
 
     preview.style.display =
       "block";
@@ -702,8 +839,6 @@ function loadSavedData() {
 
 
   toggleSalaryField();
-
-  generateLetter();
 
 }
 
@@ -749,6 +884,7 @@ function clearForm() {
 
   signatureUpload.value = "";
 
+
   uploadedSignature = "";
 
 
@@ -757,7 +893,9 @@ function clearForm() {
       "signaturePreview"
     );
 
+
   signaturePreview.src = "";
+
 
   signaturePreview.style.display =
     "none";
@@ -770,9 +908,26 @@ function clearForm() {
 
   toggleSalaryField();
 
-  generateLetter();
+
+  // Reset preview
+
+  window.location.reload();
 
 }
+
+
+// ==========================================
+// PRINT
+// ==========================================
+
+printBtn.addEventListener(
+  "click",
+  function () {
+
+    window.print();
+
+  }
+);
 
 
 // ==========================================
@@ -791,16 +946,6 @@ clearBtn.addEventListener(
 );
 
 
-printBtn.addEventListener(
-  "click",
-  function () {
-
-    window.print();
-
-  }
-);
-
-
 // ==========================================
 // INITIALIZATION
 // ==========================================
@@ -809,25 +954,27 @@ window.addEventListener(
   "DOMContentLoaded",
   function () {
 
-    const today =
-      new Date()
-        .toISOString()
-        .split("T")[0];
+
+    const offerDateInput =
+      document.getElementById(
+        "offerDate"
+      );
 
 
-    // Set today's date
+    // Today's date
 
-    document.getElementById(
-      "offerDate"
-    ).value = today;
+    if (!offerDateInput.value) {
 
+      offerDateInput.value =
+        new Date()
+          .toISOString()
+          .split("T")[0];
 
-    // Setup Paid / Unpaid field
+    }
+
 
     toggleSalaryField();
 
-
-    // Load previous data
 
     loadSavedData();
 
