@@ -1,6 +1,4 @@
-@import url(
-  "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap"
-);
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap");
 
 * {
   margin: 0;
@@ -21,37 +19,29 @@ body {
 
 .lock-screen {
   position: fixed;
-
-  top: 0;
-  left: 0;
+  inset: 0;
 
   width: 100%;
-  height: 100vh;
+  height: 100%;
 
-  background:
-    linear-gradient(
-      135deg,
-      #071a33,
-      #0f2d52,
-      #071a33
-    );
+  background: linear-gradient(135deg, #071a33, #0f2d52, #071a33);
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  z-index: 99999;
+  z-index: 999999;
 }
 
 .lock-screen.hidden {
-  display: none;
+  display: none !important;
 }
 
 .lock-box {
   width: 400px;
   max-width: 90%;
 
-  background: white;
+  background: #ffffff;
 
   border-radius: 20px;
 
@@ -59,9 +49,7 @@ body {
 
   text-align: center;
 
-  box-shadow:
-    0 30px 80px
-    rgba(0, 0, 0, 0.35);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
 }
 
 .lock-logo {
@@ -79,7 +67,7 @@ body {
   margin-bottom: 5px;
 }
 
-.lock-box > p {
+.lock-subtitle {
   font-size: 13px;
   color: #64748b;
   margin-bottom: 25px;
@@ -92,7 +80,6 @@ body {
   margin: 0 auto 18px;
 
   border-radius: 50%;
-
   background: #eff6ff;
 
   display: flex;
@@ -105,40 +92,25 @@ body {
 .lock-box h2 {
   font-size: 18px;
   color: #0f172a;
-
   margin-bottom: 8px;
 }
 
-.lock-box span {
-  display: block;
-
+.lock-description {
   font-size: 12px;
   color: #64748b;
-
-  margin-bottom: 25px;
+  margin-bottom: 20px;
 }
 
-#passwordInput {
-  text-align: center;
-
-  font-size: 16px;
-
-  letter-spacing: 3px;
-
+.lock-box input {
   margin-bottom: 12px;
+  text-align: center;
+  letter-spacing: 2px;
 }
 
 #unlockBtn {
   width: 100%;
-
   background: #2563eb;
   color: white;
-
-  padding: 13px;
-
-  border-radius: 9px;
-
-  font-size: 14px;
 }
 
 #unlockBtn:hover {
@@ -147,20 +119,14 @@ body {
 
 #passwordError {
   min-height: 18px;
-
-  margin-top: 12px !important;
-  margin-bottom: 0 !important;
-
-  color: #dc2626 !important;
-
-  font-size: 12px !important;
+  margin-top: 12px;
+  color: #dc2626;
+  font-size: 12px;
   font-weight: 600;
 }
 
 
-/* =========================
-   TOPBAR
-========================= */
+/* TOPBAR */
 
 .topbar {
   height: 78px;
@@ -206,9 +172,7 @@ body {
 }
 
 
-/* =========================
-   MAIN LAYOUT
-========================= */
+/* MAIN */
 
 .app-layout {
   display: grid;
@@ -218,9 +182,7 @@ body {
 }
 
 
-/* =========================
-   FORM PANEL
-========================= */
+/* FORM */
 
 .form-panel {
   background: white;
@@ -230,9 +192,7 @@ body {
   height: calc(100vh - 140px);
   overflow-y: auto;
 
-  box-shadow:
-    0 10px 30px
-    rgba(15, 23, 42, 0.06);
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
 }
 
 .panel-header {
@@ -280,7 +240,6 @@ textarea {
   width: 100%;
   border: 1px solid #d8e0ea;
   border-radius: 8px;
-
   padding: 11px 12px;
 
   font-family: inherit;
@@ -298,20 +257,13 @@ input:focus,
 select:focus,
 textarea:focus {
   border-color: #2563eb;
-
-  box-shadow:
-    0 0 0 3px
-    rgba(37, 99, 235, 0.08);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.08);
 }
-
-
-/* Disabled salary */
 
 input:disabled {
   background: #f1f5f9;
   color: #94a3b8;
   cursor: not-allowed;
-  border-color: #e2e8f0;
 }
 
 .form-row {
@@ -321,9 +273,7 @@ input:disabled {
 }
 
 
-/* =========================
-   BUTTONS
-========================= */
+/* BUTTONS */
 
 .button-group {
   display: flex;
@@ -334,20 +284,17 @@ input:disabled {
 button {
   border: none;
   padding: 12px 16px;
-
   border-radius: 8px;
 
   font-family: inherit;
   font-weight: 600;
 
   cursor: pointer;
-
   transition: 0.2s;
 }
 
 .generate-btn {
   flex: 1;
-
   background: #2563eb;
   color: white;
 }
@@ -362,9 +309,7 @@ button {
 }
 
 
-/* =========================
-   PREVIEW
-========================= */
+/* PREVIEW */
 
 .preview-panel {
   min-width: 0;
@@ -374,7 +319,6 @@ button {
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   margin-bottom: 20px;
 }
 
@@ -394,9 +338,7 @@ button {
 }
 
 
-/* =========================
-   OFFER PAGE
-========================= */
+/* OFFER PAGE */
 
 .offer-page {
   width: 210mm;
@@ -410,13 +352,8 @@ button {
 
   position: relative;
 
-  box-shadow:
-    0 12px 40px
-    rgba(15, 23, 42, 0.1);
+  box-shadow: 0 12px 40px rgba(15, 23, 42, 0.1);
 }
-
-
-/* Letter Header */
 
 .letter-header {
   display: flex;
@@ -436,11 +373,8 @@ button {
 
 .company-meta strong {
   display: block;
-
   color: #0b2545;
-
   font-size: 15px;
-
   letter-spacing: 1px;
 }
 
@@ -451,25 +385,18 @@ button {
 
 .blue-line {
   height: 3px;
-
   background: #2563eb;
-
   margin: 20px 0;
 }
-
-
-/* Offer Meta */
 
 .offer-meta {
   display: flex;
   justify-content: space-between;
 
   background: #f8fafc;
-
   border: 1px solid #e2e8f0;
 
   padding: 13px 15px;
-
   margin-bottom: 30px;
 }
 
@@ -481,9 +408,7 @@ button {
 
 .offer-meta span {
   font-size: 9px;
-
   text-transform: uppercase;
-
   color: #64748b;
 }
 
@@ -492,31 +417,21 @@ button {
   color: #0f172a;
 }
 
-
-/* Letter Content */
-
 .letter-title {
   text-align: center;
-
-  font-family:
-    "Playfair Display",
-    serif;
+  font-family: "Playfair Display", serif;
 
   font-size: 28px;
-
   letter-spacing: 4px;
 
   color: #0b2545;
-
   margin-bottom: 35px;
 }
 
 .offer-page p {
   font-size: 11.5px;
   line-height: 1.8;
-
   margin-bottom: 14px;
-
   color: #334155;
 }
 
@@ -525,43 +440,32 @@ button {
   margin-bottom: 10px;
 
   font-size: 13px;
-
   color: #0b2545;
 
-  border-left:
-    3px solid #2563eb;
-
+  border-left: 3px solid #2563eb;
   padding-left: 9px;
 }
 
 
-/* Summary */
+/* SUMMARY */
 
 .summary-box {
   background: #f8fafc;
-
-  border:
-    1px solid #e2e8f0;
+  border: 1px solid #e2e8f0;
 
   padding: 17px;
-
   margin: 22px 0;
 }
 
 .summary-box h3 {
   font-size: 13px;
-
   color: #0b2545;
-
   margin-bottom: 15px;
 }
 
 .summary-grid {
   display: grid;
-
-  grid-template-columns:
-    1fr 1fr;
-
+  grid-template-columns: 1fr 1fr;
   gap: 15px 30px;
 }
 
@@ -573,9 +477,7 @@ button {
 
 .summary-grid span {
   font-size: 9px;
-
   text-transform: uppercase;
-
   color: #64748b;
 }
 
@@ -585,25 +487,20 @@ button {
 }
 
 
-/* Details Table */
+/* DETAILS */
 
 .details-table {
-  border:
-    1px solid #e2e8f0;
-
+  border: 1px solid #e2e8f0;
   margin-bottom: 25px;
 }
 
 .table-row {
   display: flex;
-
-  justify-content:
-    space-between;
+  justify-content: space-between;
 
   padding: 11px 14px;
 
-  border-bottom:
-    1px solid #e2e8f0;
+  border-bottom: 1px solid #e2e8f0;
 }
 
 .table-row:last-child {
@@ -621,46 +518,36 @@ button {
 }
 
 
-/* Custom Terms */
+/* CUSTOM TERMS */
 
 .custom-terms {
   background: #f8fafc;
 
-  border-left:
-    3px solid #2563eb;
+  border-left: 3px solid #2563eb;
 
   padding: 14px;
-
   margin-top: 22px;
 }
 
 .custom-terms h3 {
   font-size: 12px;
-
   margin-bottom: 8px;
-
   color: #0b2545;
 }
 
 
-/* =========================
-   SIGNATURE
-========================= */
+/* SIGNATURE */
 
 .signature-area {
   display: flex;
-
-  justify-content:
-    space-between;
+  justify-content: space-between;
 
   gap: 60px;
-
   margin-top: 45px;
 }
 
 .signature-block {
   width: 50%;
-
   display: flex;
   flex-direction: column;
 }
@@ -673,8 +560,7 @@ button {
   height: 60px;
 
   display: flex;
-
-  align-items: end;
+  align-items: flex-end;
 }
 
 .signature-image-box img {
@@ -682,14 +568,11 @@ button {
   max-width: 160px;
 
   object-fit: contain;
-
   display: none;
 }
 
 .signature-line {
-  border-top:
-    1px solid #334155;
-
+  border-top: 1px solid #334155;
   margin-bottom: 7px;
 }
 
@@ -701,60 +584,47 @@ button {
 .signature-block span,
 .signature-block small {
   font-size: 9px;
-
   color: #64748b;
-
   margin-top: 3px;
 }
 
 
-/* Acceptance */
+/* ACCEPTANCE */
 
 .acceptance-note {
   margin-top: 25px;
-
   padding: 12px;
 
   background: #f1f5f9;
 
   font-size: 10px;
-
   color: #475569;
 }
 
 
-/* Footer */
+/* FOOTER */
 
 .page-footer {
   position: absolute;
 
   bottom: 12mm;
-
   left: 20mm;
   right: 20mm;
 
   display: flex;
+  justify-content: space-between;
 
-  justify-content:
-    space-between;
-
-  border-top:
-    1px solid #e2e8f0;
-
+  border-top: 1px solid #e2e8f0;
   padding-top: 8px;
 
   font-size: 8px;
-
   color: #94a3b8;
 }
 
 
-/* =========================
-   RESPONSIVE
-========================= */
+/* RESPONSIVE */
 
 @media (max-width: 1200px) {
-
   .app-layout {
     grid-template-columns: 1fr;
   }
@@ -762,9 +632,7 @@ button {
   .form-panel {
     height: auto;
   }
-
 }
-
 
 @media (max-width: 700px) {
 
@@ -784,11 +652,15 @@ button {
     grid-template-columns: 1fr;
   }
 
+  .preview-header {
+    align-items: flex-start;
+    gap: 15px;
+    flex-direction: column;
+  }
+
   .offer-page {
     width: 100%;
-
     min-height: auto;
-
     padding: 30px 22px;
   }
 
@@ -800,13 +672,10 @@ button {
   .signature-block {
     width: 100%;
   }
-
 }
 
 
-/* =========================
-   PRINT
-========================= */
+/* PRINT */
 
 @media print {
 
@@ -831,7 +700,6 @@ button {
     min-height: 297mm;
 
     margin: 0;
-
     box-shadow: none;
 
     page-break-after: always;
