@@ -3,172 +3,442 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Crodyto | Offer Letter Generator</title>
+
+  <title>Crodyto HR | Offer Letter Generator</title>
 
   <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
 
+  <!-- =========================
+       TOP NAVIGATION
+  ========================== -->
+
   <header class="topbar">
+
     <div class="brand">
-      <div class="logo">C</div>
+
+      <!-- Replace logo.png with your Crodyto logo -->
+      <img src="logo.png" alt="Crodyto Logo" class="top-logo">
 
       <div>
         <h2>Crodyto</h2>
-        <span>Offer Letter Generator</span>
+        <span>HR Management • Offer Letter Generator</span>
       </div>
+
     </div>
 
-    <div class="status">
+    <div class="dashboard-badge">
       ● HR Dashboard
     </div>
+
   </header>
 
 
-  <main class="app-container">
+  <main class="app-layout">
 
-    <!-- FORM SECTION -->
+
+    <!-- =========================
+         FORM PANEL
+    ========================== -->
+
     <section class="form-panel">
 
-      <div class="section-heading">
-        <h2>Candidate Details</h2>
-        <p>Fill in the employee information.</p>
+      <div class="panel-header">
+        <h2>Create Offer Letter</h2>
+        <p>Fill in the candidate and employment details.</p>
       </div>
 
 
-      <div class="form-group">
-        <label>Full Name</label>
-        <input
-          type="text"
-          id="name"
-          placeholder="Enter candidate name"
-        />
-      </div>
+      <!-- CANDIDATE DETAILS -->
 
+      <div class="form-section">
 
-      <div class="form-group">
-        <label>Email Address</label>
-        <input
-          type="email"
-          id="email"
-          placeholder="example@email.com"
-        />
-      </div>
-
-
-      <div class="form-row">
+        <h3>👤 Candidate Information</h3>
 
         <div class="form-group">
-          <label>Job Position</label>
+          <label>Full Name *</label>
+          <input
+            type="text"
+            id="name"
+            placeholder="Enter candidate's full name"
+          >
+        </div>
+
+        <div class="form-group">
+          <label>Email Address</label>
+          <input
+            type="email"
+            id="email"
+            placeholder="candidate@email.com"
+          >
+        </div>
+
+        <div class="form-row">
+
+          <div class="form-group">
+            <label>Phone Number</label>
+            <input
+              type="text"
+              id="phone"
+              placeholder="+91 XXXXX XXXXX"
+            >
+          </div>
+
+          <div class="form-group">
+            <label>Offer Date</label>
+            <input
+              type="date"
+              id="offerDate"
+            >
+          </div>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- JOB DETAILS -->
+
+      <div class="form-section">
+
+        <h3>💼 Job Information</h3>
+
+        <div class="form-group">
+          <label>Job Position *</label>
+
           <input
             type="text"
             id="position"
-            placeholder="Frontend Developer"
-          />
+            placeholder="Frontend Developer Intern"
+          >
         </div>
 
+
+        <div class="form-row">
+
+          <div class="form-group">
+
+            <label>Department</label>
+
+            <input
+              type="text"
+              id="department"
+              placeholder="Engineering"
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>Employment Type</label>
+
+            <select id="employmentType">
+
+              <option value="Internship">
+                Internship
+              </option>
+
+              <option value="Full-Time">
+                Full-Time
+              </option>
+
+              <option value="Part-Time">
+                Part-Time
+              </option>
+
+              <option value="Contract">
+                Contract
+              </option>
+
+            </select>
+
+          </div>
+
+        </div>
+
+
+        <div class="form-row">
+
+          <div class="form-group">
+
+            <label>Paid / Unpaid</label>
+
+            <select id="paymentType">
+
+              <option value="Paid">
+                Paid
+              </option>
+
+              <option value="Unpaid">
+                Unpaid
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>Salary / Stipend</label>
+
+            <input
+              type="text"
+              id="salary"
+              placeholder="₹10,000 per month"
+            >
+
+          </div>
+
+        </div>
+
+
+        <div class="form-row">
+
+          <div class="form-group">
+
+            <label>Joining Date</label>
+
+            <input
+              type="date"
+              id="joiningDate"
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>Duration / Probation</label>
+
+            <input
+              type="text"
+              id="duration"
+              placeholder="3 Months"
+            >
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- WORK DETAILS -->
+
+      <div class="form-section">
+
+        <h3>🏢 Work Information</h3>
+
+
+        <div class="form-row">
+
+          <div class="form-group">
+
+            <label>Work Mode</label>
+
+            <select id="workMode">
+
+              <option value="Remote">
+                Remote
+              </option>
+
+              <option value="On-site">
+                On-site
+              </option>
+
+              <option value="Hybrid">
+                Hybrid
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>Work Location</label>
+
+            <input
+              type="text"
+              id="location"
+              placeholder="Siliguri / Remote"
+            >
+
+          </div>
+
+        </div>
+
+
+        <div class="form-row">
+
+          <div class="form-group">
+
+            <label>Working Hours</label>
+
+            <input
+              type="text"
+              id="workingHours"
+              placeholder="10:00 AM - 6:00 PM"
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>Working Days</label>
+
+            <input
+              type="text"
+              id="workingDays"
+              placeholder="Monday - Friday"
+            >
+
+          </div>
+
+        </div>
+
+
         <div class="form-group">
-          <label>Department</label>
+
+          <label>Reporting To</label>
+
           <input
             type="text"
-            id="department"
-            placeholder="Engineering"
-          />
+            id="reportingManager"
+            placeholder="Team Lead / Manager"
+          >
+
         </div>
 
       </div>
 
 
-      <div class="form-row">
 
-        <div class="form-group">
-          <label>Employment Type</label>
+      <!-- POLICY DETAILS -->
 
-          <select id="employmentType">
-            <option value="Internship">Internship</option>
-            <option value="Full Time">Full Time</option>
-            <option value="Part Time">Part Time</option>
-            <option value="Contract">Contract</option>
-          </select>
+      <div class="form-section">
+
+        <h3>📋 Employment Conditions</h3>
+
+
+        <div class="form-row">
+
+          <div class="form-group">
+
+            <label>Notice Period</label>
+
+            <input
+              type="text"
+              id="noticePeriod"
+              placeholder="15 Days"
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>Offer Valid Until</label>
+
+            <input
+              type="date"
+              id="validUntil"
+            >
+
+          </div>
 
         </div>
 
 
         <div class="form-group">
-          <label>Salary / Stipend</label>
+
+          <label>Additional Terms (Optional)</label>
+
+          <textarea
+            id="customTerms"
+            rows="5"
+            placeholder="Add any special conditions for this candidate..."
+          ></textarea>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- HR SIGNATURE -->
+
+      <div class="form-section">
+
+        <h3>✍️ HR Authorization</h3>
+
+
+        <div class="form-group">
+
+          <label>HR / Authorized Person Name</label>
 
           <input
             type="text"
-            id="salary"
-            placeholder="₹15,000 per month"
-          />
-
-        </div>
-
-      </div>
-
-
-      <div class="form-row">
-
-        <div class="form-group">
-          <label>Joining Date</label>
-
-          <input
-            type="date"
-            id="joiningDate"
-          />
+            id="hrName"
+            placeholder="Authorized HR Representative"
+          >
 
         </div>
 
 
         <div class="form-group">
-          <label>Work Location</label>
+
+          <label>Designation</label>
 
           <input
             type="text"
-            id="location"
-            placeholder="Remote / Siliguri"
-          />
+            id="hrDesignation"
+            placeholder="HR Manager / Founder"
+          >
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>Upload HR Signature</label>
+
+          <input
+            type="file"
+            id="signatureUpload"
+            accept="image/*"
+          >
 
         </div>
 
       </div>
 
 
-      <div class="form-group">
 
-        <label>HR / Authorized Person</label>
-
-        <input
-          type="text"
-          id="hrName"
-          placeholder="HR Manager"
-        />
-
-      </div>
-
-
-      <div class="form-group">
-
-        <label>Custom Terms (Optional)</label>
-
-        <textarea
-          id="terms"
-          rows="5"
-          placeholder="Enter any additional terms..."
-        ></textarea>
-
-      </div>
-
+      <!-- BUTTONS -->
 
       <div class="button-group">
 
-        <button class="generate-btn" onclick="generateLetter()">
+        <button
+          class="generate-btn"
+          onclick="generateLetter()"
+        >
           Generate Offer Letter
         </button>
 
-        <button class="clear-btn" onclick="clearForm()">
+
+        <button
+          class="clear-btn"
+          onclick="clearForm()"
+        >
           Clear
         </button>
 
@@ -178,78 +448,125 @@
 
 
 
-    <!-- PREVIEW SECTION -->
+    <!-- =========================
+         PREVIEW PANEL
+    ========================== -->
 
-    <section class="preview-wrapper">
+    <section class="preview-panel">
+
 
       <div class="preview-header">
 
         <div>
-          <h2>Live Preview</h2>
-          <p>Your professional offer letter</p>
+          <h2>Offer Letter Preview</h2>
+          <p>Two-page professional document</p>
         </div>
 
-        <button class="print-btn" onclick="printLetter()">
+
+        <button
+          class="print-btn"
+          onclick="printLetter()"
+        >
           🖨 Print / Save PDF
         </button>
 
       </div>
 
 
-      <!-- OFFER LETTER -->
 
-      <div class="letter" id="offerLetter">
+      <!-- =========================
+           PAGE 1
+      ========================== -->
 
+      <div
+        class="offer-page"
+        id="offerLetter"
+      >
+
+
+        <!-- HEADER -->
 
         <div class="letter-header">
 
-          <div class="company-info">
+          <div class="company-brand">
 
-            <div class="company-logo">
-              C
-            </div>
-
-            <div>
-
-              <h1>Crodyto</h1>
-
-              <p>
-                IT Services & IT Consulting
-              </p>
-
-            </div>
+            <!-- Replace logo.png with your logo -->
+            <img
+              src="logo.png"
+              alt="Crodyto"
+              class="letter-logo"
+            >
 
           </div>
 
 
-          <div class="letter-meta">
+          <div class="company-meta">
 
-            <p>
-              <strong>Offer ID:</strong>
-              <span id="offerId">
-                CRO-0001
-              </span>
-            </p>
+            <strong>CRODYTO</strong>
 
-            <p>
-              <strong>Date:</strong>
-              <span id="currentDate"></span>
-            </p>
+            <span>
+              IT Services & IT Consulting
+            </span>
 
           </div>
 
         </div>
 
 
-        <div class="divider"></div>
+        <div class="blue-line"></div>
 
 
-        <h2 class="letter-title">
+
+        <!-- OFFER META -->
+
+        <div class="offer-meta">
+
+          <div>
+
+            <span>Offer Letter ID</span>
+
+            <strong id="offerId">
+              CRO-2026-0001
+            </strong>
+
+          </div>
+
+
+          <div>
+
+            <span>Date of Issue</span>
+
+            <strong id="previewOfferDate">
+              —
+            </strong>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- TITLE -->
+
+        <h1 class="letter-title">
           OFFER LETTER
-        </h2>
+        </h1>
 
 
-        <p class="greeting">
+
+        <!-- CONTENT -->
+
+        <p class="date-line">
+
+          Date:
+          <strong id="letterDate">
+            —
+          </strong>
+
+        </p>
+
+
+        <p>
 
           Dear
           <strong id="previewName">
@@ -261,82 +578,254 @@
 
         <p>
 
-          We are delighted to offer you the position of
+          We are pleased to offer you the position of
 
           <strong id="previewPosition">
-            Position
+            —
           </strong>
 
-          in the
+          with
+          <strong>Crodyto</strong>.
 
-          <strong id="previewDepartment">
-            Department
-          </strong>
-
-          department at Crodyto.
+          Based on our discussions and evaluation, we believe that your
+          skills, knowledge, and enthusiasm will be a valuable addition
+          to our organization.
 
         </p>
 
 
         <p>
 
-          Your employment type will be
+          You will be joining the
 
-          <strong id="previewEmployment">
-            Employment Type
+          <strong id="previewDepartment">
+            —
+          </strong>
+
+          department as a
+
+          <strong id="previewEmploymentType">
+            —
           </strong>.
 
         </p>
 
 
-        <div class="details-box">
+
+        <!-- EMPLOYMENT SUMMARY -->
+
+        <div class="summary-box">
+
+          <h3>Employment Summary</h3>
 
 
-          <div class="detail-item">
+          <div class="summary-grid">
 
-            <span>Position</span>
 
-            <strong id="detailPosition">
+            <div>
+
+              <span>Position</span>
+
+              <strong id="summaryPosition">
+                —
+              </strong>
+
+            </div>
+
+
+            <div>
+
+              <span>Employment Type</span>
+
+              <strong id="summaryEmployment">
+                —
+              </strong>
+
+            </div>
+
+
+            <div>
+
+              <span>Department</span>
+
+              <strong id="summaryDepartment">
+                —
+              </strong>
+
+            </div>
+
+
+            <div>
+
+              <span>Compensation</span>
+
+              <strong id="summarySalary">
+                —
+              </strong>
+
+            </div>
+
+
+            <div>
+
+              <span>Joining Date</span>
+
+              <strong id="summaryJoining">
+                —
+              </strong>
+
+            </div>
+
+
+            <div>
+
+              <span>Duration / Probation</span>
+
+              <strong id="summaryDuration">
+                —
+              </strong>
+
+            </div>
+
+
+          </div>
+
+        </div>
+
+
+
+        <h3 class="section-title">
+          1. Employment & Compensation
+        </h3>
+
+
+        <p>
+
+          Your engagement with Crodyto will begin on
+
+          <strong id="textJoiningDate">
+            —
+          </strong>.
+
+          Your employment category will be
+
+          <strong id="textEmploymentType">
+            —
+          </strong>.
+
+        </p>
+
+
+        <p id="paymentParagraph">
+
+          Compensation details will be provided according to the agreed
+          employment terms.
+
+        </p>
+
+
+
+        <h3 class="section-title">
+          2. Work Responsibilities
+        </h3>
+
+
+        <p>
+
+          You will be expected to perform the responsibilities associated
+          with your assigned role and complete tasks within agreed timelines.
+          You may also be required to work on additional projects that are
+          relevant to your skills and organizational requirements.
+
+        </p>
+
+
+        <p>
+
+          You will report directly to
+
+          <strong id="previewReportingManager">
+            —
+          </strong>.
+
+        </p>
+
+
+
+        <!-- FOOTER PAGE 1 -->
+
+        <div class="page-footer">
+
+          <span>Crodyto • Confidential</span>
+
+          <span>Page 1 of 2</span>
+
+        </div>
+
+
+      </div>
+
+
+
+      <!-- =========================
+           PAGE 2
+      ========================== -->
+
+      <div class="offer-page second-page">
+
+
+        <!-- HEADER -->
+
+        <div class="letter-header">
+
+          <div class="company-brand">
+
+            <img
+              src="logo.png"
+              alt="Crodyto"
+              class="letter-logo"
+            >
+
+          </div>
+
+
+          <div class="company-meta">
+
+            <strong>CRODYTO</strong>
+
+            <span>
+              IT Services & IT Consulting
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <div class="blue-line"></div>
+
+
+
+        <h3 class="section-title">
+          3. Working Schedule & Location
+        </h3>
+
+
+        <div class="details-table">
+
+
+          <div class="table-row">
+
+            <span>Work Mode</span>
+
+            <strong id="detailWorkMode">
               —
             </strong>
 
           </div>
 
 
-          <div class="detail-item">
-
-            <span>Department</span>
-
-            <strong id="detailDepartment">
-              —
-            </strong>
-
-          </div>
-
-
-          <div class="detail-item">
-
-            <span>Compensation</span>
-
-            <strong id="detailSalary">
-              —
-            </strong>
-
-          </div>
-
-
-          <div class="detail-item">
-
-            <span>Joining Date</span>
-
-            <strong id="detailJoiningDate">
-              —
-            </strong>
-
-          </div>
-
-
-          <div class="detail-item">
+          <div class="table-row">
 
             <span>Work Location</span>
 
@@ -347,68 +836,217 @@
           </div>
 
 
+          <div class="table-row">
+
+            <span>Working Hours</span>
+
+            <strong id="detailWorkingHours">
+              —
+            </strong>
+
+          </div>
+
+
+          <div class="table-row">
+
+            <span>Working Days</span>
+
+            <strong id="detailWorkingDays">
+              —
+            </strong>
+
+          </div>
+
+
+          <div class="table-row">
+
+            <span>Notice Period</span>
+
+            <strong id="detailNoticePeriod">
+              —
+            </strong>
+
+          </div>
+
+
         </div>
+
+
+
+        <h3 class="section-title">
+          4. Confidentiality & Intellectual Property
+        </h3>
 
 
         <p>
 
-          We believe that your skills and enthusiasm will make a valuable
-          contribution to our team. We are excited to have you join Crodyto
-          and look forward to working together.
+          During your association with Crodyto, you may have access to
+          confidential information including client information, business
+          strategies, source code, documents, credentials, internal systems,
+          and other proprietary materials.
 
         </p>
 
 
-        <div class="terms-section">
+        <p>
+
+          You agree not to disclose, share, reproduce, or use such
+          confidential information for personal or third-party purposes
+          without prior written authorization from Crodyto.
+
+        </p>
+
+
+        <p>
+
+          Any work, design, source code, documentation, content, research,
+          or other intellectual property created as part of your assigned
+          responsibilities shall remain the property of Crodyto unless
+          otherwise agreed in writing.
+
+        </p>
+
+
+
+        <h3 class="section-title">
+          5. Code of Conduct
+        </h3>
+
+
+        <p>
+
+          You are expected to maintain professional conduct, respect
+          colleagues and clients, follow reasonable instructions from your
+          reporting manager, and comply with Crodyto's internal policies.
+
+        </p>
+
+
+        <p>
+
+          Misconduct, repeated negligence, violation of confidentiality,
+          unauthorized sharing of company information, or failure to comply
+          with company policies may result in disciplinary action or
+          termination of employment.
+
+        </p>
+
+
+
+        <h3 class="section-title">
+          6. Performance & Termination
+        </h3>
+
+
+        <p>
+
+          Your performance may be reviewed periodically based on work
+          quality, communication, discipline, attendance, responsibility,
+          and contribution to assigned projects.
+
+        </p>
+
+
+        <p>
+
+          Crodyto reserves the right to modify, extend, discontinue, or
+          terminate the engagement subject to applicable terms and company
+          requirements. The applicable notice period for this position is
+
+          <strong id="previewNoticePeriod">
+            —
+          </strong>.
+
+        </p>
+
+
+
+        <!-- CUSTOM TERMS -->
+
+        <div
+          class="custom-terms"
+          id="customTermsBox"
+        >
 
           <h3>
-            Terms & Conditions
+            7. Additional Terms
           </h3>
 
-          <p id="previewTerms">
+          <p id="previewCustomTerms">
 
-            This offer is subject to the terms and conditions of Crodyto.
-            You are expected to maintain professionalism, confidentiality,
-            and follow the company's policies and guidelines.
+            No additional terms have been specified.
 
           </p>
 
         </div>
 
 
+
+        <!-- ACCEPTANCE -->
+
+        <h3 class="section-title">
+          8. Acceptance of Offer
+        </h3>
+
+
         <p>
 
-          Please confirm your acceptance of this offer by signing and
-          returning a copy of this letter.
+          By accepting this offer, you acknowledge that you have read,
+          understood, and agreed to the terms and conditions outlined in
+          this letter. Please sign below as confirmation of your acceptance.
 
         </p>
 
 
-        <div class="signature-section">
+
+        <!-- SIGNATURES -->
+
+        <div class="signature-area">
 
 
-          <div class="candidate-sign">
+          <div class="signature-block">
+
+            <div class="signature-space"></div>
 
             <div class="signature-line"></div>
 
-            <strong id="candidateSignature">
-              Candidate Signature
+            <strong id="candidateNameSignature">
+              Candidate Name
             </strong>
+
+            <span>Candidate Signature & Date</span>
 
           </div>
 
 
-          <div class="company-sign">
+
+          <div class="signature-block company-signature">
+
+
+            <div class="signature-image-box">
+
+              <img
+                id="signaturePreview"
+                src=""
+                alt="HR Signature"
+              >
+
+            </div>
+
 
             <div class="signature-line"></div>
 
             <strong id="previewHrName">
-              HR / Authorized Person
+              Authorized Person
             </strong>
 
-            <p>
-              Crodyto
-            </p>
+            <span id="previewHrDesignation">
+              HR / Authorized Representative
+            </span>
+
+            <small>
+              For Crodyto
+            </small>
 
           </div>
 
@@ -416,18 +1054,32 @@
         </div>
 
 
-        <div class="letter-footer">
 
-          <strong>Crodyto</strong>
+        <div class="acceptance-note">
 
-          <span>
-            IT Services & IT Consulting
-          </span>
+          This offer remains valid until
+
+          <strong id="previewValidUntil">
+            —
+          </strong>.
+
+        </div>
+
+
+
+        <!-- FOOTER -->
+
+        <div class="page-footer">
+
+          <span>Crodyto • Confidential</span>
+
+          <span>Page 2 of 2</span>
 
         </div>
 
 
       </div>
+
 
     </section>
 
