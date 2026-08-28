@@ -8,47 +8,72 @@
 body {
     font-family: Arial, sans-serif;
     min-height: 100vh;
+
     display: flex;
     justify-content: center;
     align-items: center;
+
     background: #071a33;
     color: white;
+
     overflow: hidden;
 }
 
 .background {
     position: fixed;
     inset: 0;
+
     background:
-        radial-gradient(circle at top right, #163a70, transparent 40%),
-        radial-gradient(circle at bottom left, #10264d, transparent 45%),
+        radial-gradient(
+            circle at top right,
+            #163a70,
+            transparent 40%
+        ),
+        radial-gradient(
+            circle at bottom left,
+            #10264d,
+            transparent 45%
+        ),
         #071a33;
+
     z-index: -1;
 }
 
 .lock-container {
     width: 420px;
     max-width: 90%;
+
     padding: 45px 40px;
+
     background: rgba(255, 255, 255, 0.06);
+
     border: 1px solid rgba(255, 255, 255, 0.15);
+
     border-radius: 20px;
+
     text-align: center;
+
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+
     backdrop-filter: blur(15px);
 }
 
 .logo-box {
-    width: 85px;
-    height: 85px;
+    width: 150px;
+    height: 90px;
+
     margin: 0 auto 25px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #2563eb, #6d28d9);
+
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 38px;
-    box-shadow: 0 0 30px rgba(59, 130, 246, 0.5);
+}
+
+.logo-box img {
+    max-width: 100%;
+    max-height: 100%;
+
+    object-fit: contain;
 }
 
 h1 {
@@ -59,14 +84,18 @@ h1 {
 .subtitle {
     color: #aab7cf;
     margin-bottom: 35px;
+
     font-size: 15px;
+    line-height: 1.5;
 }
 
 label {
     display: block;
     text-align: left;
+
     font-size: 13px;
     color: #cbd5e1;
+
     margin-bottom: 8px;
 }
 
@@ -77,12 +106,19 @@ label {
 
 input {
     width: 100%;
+
     padding: 15px 15px 15px 45px;
+
     border-radius: 10px;
+
     border: 1px solid rgba(255, 255, 255, 0.15);
+
     background: rgba(0, 0, 0, 0.2);
+
     color: white;
+
     outline: none;
+
     font-size: 15px;
 }
 
@@ -92,33 +128,53 @@ input::placeholder {
 
 input:focus {
     border-color: #3b82f6;
-    box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
+
+    box-shadow:
+        0 0 15px
+        rgba(59, 130, 246, 0.3);
 }
 
 .lock-icon-small {
     position: absolute;
+
     left: 15px;
     top: 50%;
+
     transform: translateY(-50%);
+
     font-size: 17px;
 }
 
 button {
     width: 100%;
+
     padding: 15px;
+
     border: none;
     border-radius: 10px;
+
     font-size: 16px;
     font-weight: bold;
+
     color: white;
     cursor: pointer;
-    background: linear-gradient(135deg, #2563eb, #6d28d9);
+
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #6d28d9
+        );
+
     transition: 0.3s;
 }
 
 button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(59, 130, 246, 0.35);
+
+    box-shadow:
+        0 10px 25px
+        rgba(59, 130, 246, 0.35);
 }
 
 button:active {
@@ -127,7 +183,9 @@ button:active {
 
 #error {
     min-height: 22px;
+
     margin-top: 15px;
+
     color: #ff6b6b;
     font-size: 14px;
 }
@@ -135,15 +193,25 @@ button:active {
 .footer {
     margin-top: 30px;
     padding-top: 20px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+
+    border-top:
+        1px solid
+        rgba(255, 255, 255, 0.1);
+
     color: #94a3b8;
+
     font-size: 12px;
-    line-height: 1.5;
+    line-height: 1.7;
 }
 
 @media (max-width: 500px) {
+
     .lock-container {
         padding: 35px 25px;
+    }
+
+    .logo-box {
+        width: 130px;
     }
 
     h1 {
