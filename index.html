@@ -1,835 +1,826 @@
-// ==========================================
-// CRODYTO OFFER LETTER GENERATOR
-// ==========================================
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+  <title>Crodyto HR | Offer Letter Generator</title>
 
-let uploadedSignature = "";
+  <link rel="stylesheet" href="style.css" />
+</head>
 
+<body>
 
-// ==========================================
-// ELEMENTS
-// ==========================================
+  <!-- TOPBAR -->
+  <header class="topbar">
 
-const paymentType =
-  document.getElementById("paymentType");
+    <div class="brand">
+      <img src="logo.png" alt="Crodyto Logo" class="top-logo">
 
-const salaryInput =
-  document.getElementById("salary");
+      <div>
+        <h2>Crodyto</h2>
+        <span>HR Management • Offer Letter Generator</span>
+      </div>
+    </div>
 
-const generateBtn =
-  document.getElementById("generateBtn");
+    <div class="dashboard-badge">
+      ● HR Dashboard
+    </div>
 
-const clearBtn =
-  document.getElementById("clearBtn");
+  </header>
 
-const printBtn =
-  document.getElementById("printBtn");
 
-const signatureUpload =
-  document.getElementById("signatureUpload");
+  <main class="app-layout">
 
+    <!-- =========================
+         FORM PANEL
+    ========================== -->
 
-// ==========================================
-// GENERATE OFFER ID
-// ==========================================
+    <section class="form-panel">
 
-function generateOfferId() {
+      <div class="panel-header">
+        <h2>Create Offer Letter</h2>
+        <p>Fill in the candidate and employment details.</p>
+      </div>
 
-  const year =
-    new Date().getFullYear();
 
-  const random =
-    Math.floor(
-      1000 + Math.random() * 9000
-    );
+      <!-- CANDIDATE INFORMATION -->
 
-  return `CRO-${year}-${random}`;
+      <div class="form-section">
 
-}
+        <h3>👤 Candidate Information</h3>
 
+        <div class="form-group">
+          <label>Full Name *</label>
+          <input
+            type="text"
+            id="name"
+            placeholder="Enter candidate's full name"
+          >
+        </div>
 
-// ==========================================
-// FORMAT DATE
-// ==========================================
+        <div class="form-row">
 
-function formatDate(value) {
+          <div class="form-group">
+            <label>Email Address</label>
+            <input
+              type="email"
+              id="email"
+              placeholder="candidate@email.com"
+            >
+          </div>
 
-  if (!value) {
-    return "—";
-  }
+          <div class="form-group">
+            <label>Phone Number</label>
+            <input
+              type="text"
+              id="phone"
+              placeholder="+91 XXXXX XXXXX"
+            >
+          </div>
 
-  const date =
-    new Date(value + "T00:00:00");
+        </div>
 
-  return date.toLocaleDateString(
-    "en-IN",
-    {
-      day: "numeric",
-      month: "long",
-      year: "numeric"
-    }
-  );
+        <div class="form-group">
+          <label>Offer Date</label>
+          <input type="date" id="offerDate">
+        </div>
 
-}
+      </div>
 
 
-// ==========================================
-// GET VALUE
-// ==========================================
+      <!-- JOB INFORMATION -->
 
-function getValue(id, fallback = "—") {
+      <div class="form-section">
 
-  const element =
-    document.getElementById(id);
+        <h3>💼 Job Information</h3>
 
-  if (!element) {
-    return fallback;
-  }
+        <div class="form-group">
+          <label>Job Position *</label>
 
-  return element.value.trim() || fallback;
+          <input
+            type="text"
+            id="position"
+            placeholder="Frontend Developer Intern"
+          >
+        </div>
 
-}
 
+        <div class="form-row">
 
-// ==========================================
-// SET TEXT
-// ==========================================
+          <div class="form-group">
 
-function setText(id, value) {
+            <label>Department</label>
 
-  const element =
-    document.getElementById(id);
+            <input
+              type="text"
+              id="department"
+              placeholder="Engineering"
+            >
 
-  if (element) {
-    element.textContent = value;
-  }
+          </div>
 
-}
 
+          <div class="form-group">
 
-// ==========================================
-// PAID / UNPAID TOGGLE
-// ==========================================
+            <label>Employment Type</label>
 
-function toggleSalaryField() {
+            <select id="employmentType">
+              <option value="Internship">Internship</option>
+              <option value="Full-Time">Full-Time</option>
+              <option value="Part-Time">Part-Time</option>
+              <option value="Contract">Contract</option>
+            </select>
 
-  if (paymentType.value === "Unpaid") {
+          </div>
 
-    salaryInput.value = "";
+        </div>
 
-    salaryInput.disabled = true;
 
-    salaryInput.placeholder =
-      "Not applicable for unpaid role";
+        <!-- PAID / UNPAID -->
 
-  } else {
+        <div class="form-row">
 
-    salaryInput.disabled = false;
+          <div class="form-group">
 
-    salaryInput.placeholder =
-      "₹10,000 per month";
+            <label>Payment Type</label>
 
-  }
+            <select id="paymentType">
+              <option value="Paid">Paid</option>
+              <option value="Unpaid">Unpaid</option>
+            </select>
 
-}
+          </div>
 
 
-// Run when Payment Type changes
+          <div class="form-group">
 
-paymentType.addEventListener(
-  "change",
-  function () {
+            <label>Salary / Stipend</label>
 
-    toggleSalaryField();
+            <input
+              type="text"
+              id="salary"
+              placeholder="₹10,000 per month"
+            >
 
-  }
-);
+          </div>
 
+        </div>
 
-// ==========================================
-// GENERATE LETTER
-// ==========================================
 
-function generateLetter() {
+        <div class="form-row">
 
-  const name =
-    getValue("name", "Candidate");
+          <div class="form-group">
 
-  const position =
-    getValue("position");
+            <label>Joining Date</label>
 
-  const department =
-    getValue("department");
+            <input
+              type="date"
+              id="joiningDate"
+            >
 
-  const employmentType =
-    getValue("employmentType");
+          </div>
 
-  const payment =
-    getValue("paymentType");
 
-  const salary =
-    getValue("salary");
+          <div class="form-group">
 
-  const joiningDate =
-    document.getElementById(
-      "joiningDate"
-    ).value;
+            <label>Duration / Probation</label>
 
-  const duration =
-    getValue("duration");
+            <input
+              type="text"
+              id="duration"
+              placeholder="3 Months"
+            >
 
-  const workMode =
-    getValue("workMode");
+          </div>
 
-  const location =
-    getValue("location");
+        </div>
 
-  const workingHours =
-    getValue("workingHours");
+      </div>
 
-  const workingDays =
-    getValue("workingDays");
 
-  const reportingManager =
-    getValue("reportingManager");
+      <!-- WORK INFORMATION -->
 
-  const noticePeriod =
-    getValue("noticePeriod");
+      <div class="form-section">
 
-  const offerDate =
-    document.getElementById(
-      "offerDate"
-    ).value;
+        <h3>🏢 Work Information</h3>
 
-  const validUntil =
-    document.getElementById(
-      "validUntil"
-    ).value;
 
-  const hrName =
-    getValue(
-      "hrName",
-      "Authorized Person"
-    );
+        <div class="form-row">
 
-  const hrDesignation =
-    getValue(
-      "hrDesignation",
-      "HR / Authorized Representative"
-    );
+          <div class="form-group">
 
-  const customTerms =
-    getValue(
-      "customTerms",
-      "No additional terms have been specified."
-    );
+            <label>Work Mode</label>
 
+            <select id="workMode">
+              <option value="Remote">Remote</option>
+              <option value="On-site">On-site</option>
+              <option value="Hybrid">Hybrid</option>
+            </select>
 
-  // ------------------------------------------
-  // OFFER ID
-  // ------------------------------------------
+          </div>
 
-  setText(
-    "offerId",
-    generateOfferId()
-  );
 
+          <div class="form-group">
 
-  // ------------------------------------------
-  // CANDIDATE
-  // ------------------------------------------
+            <label>Work Location</label>
 
-  setText(
-    "previewName",
-    name
-  );
+            <input
+              type="text"
+              id="location"
+              placeholder="Siliguri / Remote"
+            >
 
-  setText(
-    "candidateNameSignature",
-    name
-  );
+          </div>
 
+        </div>
 
-  // ------------------------------------------
-  // JOB DETAILS
-  // ------------------------------------------
 
-  setText(
-    "previewPosition",
-    position
-  );
+        <div class="form-row">
 
-  setText(
-    "previewDepartment",
-    department
-  );
+          <div class="form-group">
 
-  setText(
-    "previewEmploymentType",
-    employmentType
-  );
+            <label>Working Hours</label>
 
+            <input
+              type="text"
+              id="workingHours"
+              placeholder="10:00 AM - 6:00 PM"
+            >
 
-  // ------------------------------------------
-  // SUMMARY
-  // ------------------------------------------
+          </div>
 
-  setText(
-    "summaryPosition",
-    position
-  );
 
-  setText(
-    "summaryEmployment",
-    employmentType
-  );
+          <div class="form-group">
 
-  setText(
-    "summaryDepartment",
-    department
-  );
+            <label>Working Days</label>
 
+            <input
+              type="text"
+              id="workingDays"
+              placeholder="Monday - Friday"
+            >
 
-  // ------------------------------------------
-  // PAID / UNPAID COMPENSATION
-  // ------------------------------------------
+          </div>
 
-  let compensationText;
+        </div>
 
-  if (payment === "Unpaid") {
 
-    compensationText =
-      "Unpaid Internship / Engagement";
+        <div class="form-group">
 
-    setText(
-      "paymentParagraph",
-      "This is an unpaid engagement. No salary or stipend will be provided for this position unless otherwise agreed by Crodyto in writing."
-    );
+          <label>Reporting To</label>
 
-  } else {
+          <input
+            type="text"
+            id="reportingManager"
+            placeholder="Team Lead / Manager"
+          >
 
-    compensationText =
-      salary !== "—"
-        ? salary
-        : "As per company policy";
+        </div>
 
+      </div>
 
-    setText(
-      "paymentParagraph",
-      `This is a paid ${employmentType.toLowerCase()} position. The agreed salary or stipend for this role is ${compensationText}, subject to applicable company policies and agreed terms.`
-    );
 
-  }
+      <!-- EMPLOYMENT CONDITIONS -->
 
+      <div class="form-section">
 
-  setText(
-    "summarySalary",
-    compensationText
-  );
+        <h3>📋 Employment Conditions</h3>
 
 
-  // ------------------------------------------
-  // JOINING DATE
-  // ------------------------------------------
+        <div class="form-row">
 
-  setText(
-    "summaryJoining",
-    formatDate(joiningDate)
-  );
+          <div class="form-group">
 
-  setText(
-    "textJoiningDate",
-    formatDate(joiningDate)
-  );
+            <label>Notice Period</label>
 
+            <input
+              type="text"
+              id="noticePeriod"
+              placeholder="15 Days"
+            >
 
-  // ------------------------------------------
-  // DURATION
-  // ------------------------------------------
+          </div>
 
-  setText(
-    "summaryDuration",
-    duration
-  );
 
+          <div class="form-group">
 
-  // ------------------------------------------
-  // EMPLOYMENT TYPE
-  // ------------------------------------------
+            <label>Offer Valid Until</label>
 
-  setText(
-    "textEmploymentType",
-    employmentType
-  );
+            <input
+              type="date"
+              id="validUntil"
+            >
 
+          </div>
 
-  // ------------------------------------------
-  // REPORTING MANAGER
-  // ------------------------------------------
+        </div>
 
-  setText(
-    "previewReportingManager",
-    reportingManager
-  );
 
+        <div class="form-group">
 
-  // ------------------------------------------
-  // WORK DETAILS
-  // ------------------------------------------
+          <label>Additional Terms (Optional)</label>
 
-  setText(
-    "detailWorkMode",
-    workMode
-  );
+          <textarea
+            id="customTerms"
+            rows="5"
+            placeholder="Add any special conditions..."
+          ></textarea>
 
-  setText(
-    "detailLocation",
-    location
-  );
+        </div>
 
-  setText(
-    "detailWorkingHours",
-    workingHours
-  );
+      </div>
 
-  setText(
-    "detailWorkingDays",
-    workingDays
-  );
 
-  setText(
-    "detailNoticePeriod",
-    noticePeriod
-  );
+      <!-- HR AUTHORIZATION -->
 
+      <div class="form-section">
 
-  // ------------------------------------------
-  // NOTICE PERIOD
-  // ------------------------------------------
+        <h3>✍️ HR Authorization</h3>
 
-  setText(
-    "previewNoticePeriod",
-    noticePeriod
-  );
 
+        <div class="form-group">
 
-  // ------------------------------------------
-  // CUSTOM TERMS
-  // ------------------------------------------
+          <label>HR / Authorized Person Name</label>
 
-  setText(
-    "previewCustomTerms",
-    customTerms
-  );
+          <input
+            type="text"
+            id="hrName"
+            placeholder="Authorized Person"
+          >
 
+        </div>
 
-  // ------------------------------------------
-  // HR DETAILS
-  // ------------------------------------------
 
-  setText(
-    "previewHrName",
-    hrName
-  );
+        <div class="form-group">
 
-  setText(
-    "previewHrDesignation",
-    hrDesignation
-  );
+          <label>Designation</label>
 
+          <input
+            type="text"
+            id="hrDesignation"
+            placeholder="HR Manager / Founder"
+          >
 
-  // ------------------------------------------
-  // DATES
-  // ------------------------------------------
+        </div>
 
-  setText(
-    "previewOfferDate",
-    formatDate(offerDate)
-  );
 
-  setText(
-    "letterDate",
-    formatDate(offerDate)
-  );
+        <div class="form-group">
 
-  setText(
-    "previewValidUntil",
-    formatDate(validUntil)
-  );
+          <label>Upload HR Signature</label>
 
+          <input
+            type="file"
+            id="signatureUpload"
+            accept="image/*"
+          >
 
-  // ------------------------------------------
-  // SAVE DATA
-  // ------------------------------------------
+        </div>
 
-  saveData();
+      </div>
 
 
-  alert(
-    "Offer Letter Generated Successfully!"
-  );
+      <!-- BUTTONS -->
 
-}
+      <div class="button-group">
 
+        <button
+          type="button"
+          class="generate-btn"
+          id="generateBtn"
+        >
+          Generate Offer Letter
+        </button>
 
-// ==========================================
-// HR SIGNATURE UPLOAD
-// ==========================================
 
-signatureUpload.addEventListener(
-  "change",
-  function (event) {
+        <button
+          type="button"
+          class="clear-btn"
+          id="clearBtn"
+        >
+          Clear
+        </button>
 
-    const file =
-      event.target.files[0];
+      </div>
 
-    if (!file) {
-      return;
-    }
+    </section>
 
-    const reader =
-      new FileReader();
 
-    reader.onload =
-      function (e) {
 
-        uploadedSignature =
-          e.target.result;
+    <!-- =========================
+         PREVIEW PANEL
+    ========================== -->
 
-        const preview =
-          document.getElementById(
-            "signaturePreview"
-          );
+    <section class="preview-panel">
 
-        preview.src =
-          uploadedSignature;
 
-        preview.style.display =
-          "block";
+      <div class="preview-header">
 
-      };
+        <div>
+          <h2>Offer Letter Preview</h2>
+          <p>Professional two-page document</p>
+        </div>
 
-    reader.readAsDataURL(file);
 
-  }
-);
+        <button
+          type="button"
+          class="print-btn"
+          id="printBtn"
+        >
+          🖨 Print / Save PDF
+        </button>
 
+      </div>
 
-// ==========================================
-// SAVE DATA
-// ==========================================
 
-function saveData() {
 
-  const data = {
+      <!-- =========================
+           PAGE 1
+      ========================== -->
 
-    name:
-      document.getElementById(
-        "name"
-      ).value,
+      <article class="offer-page">
 
-    email:
-      document.getElementById(
-        "email"
-      ).value,
 
-    phone:
-      document.getElementById(
-        "phone"
-      ).value,
+        <div class="letter-header">
 
-    offerDate:
-      document.getElementById(
-        "offerDate"
-      ).value,
+          <div class="company-brand">
 
-    position:
-      document.getElementById(
-        "position"
-      ).value,
+            <img
+              src="logo.png"
+              alt="Crodyto"
+              class="letter-logo"
+            >
 
-    department:
-      document.getElementById(
-        "department"
-      ).value,
+          </div>
 
-    employmentType:
-      document.getElementById(
-        "employmentType"
-      ).value,
 
-    paymentType:
-      document.getElementById(
-        "paymentType"
-      ).value,
+          <div class="company-meta">
 
-    salary:
-      document.getElementById(
-        "salary"
-      ).value,
+            <strong>CRODYTO</strong>
 
-    joiningDate:
-      document.getElementById(
-        "joiningDate"
-      ).value,
+            <span>
+              IT Services & IT Consulting
+            </span>
 
-    duration:
-      document.getElementById(
-        "duration"
-      ).value,
+          </div>
 
-    workMode:
-      document.getElementById(
-        "workMode"
-      ).value,
+        </div>
 
-    location:
-      document.getElementById(
-        "location"
-      ).value,
 
-    workingHours:
-      document.getElementById(
-        "workingHours"
-      ).value,
+        <div class="blue-line"></div>
 
-    workingDays:
-      document.getElementById(
-        "workingDays"
-      ).value,
 
-    reportingManager:
-      document.getElementById(
-        "reportingManager"
-      ).value,
+        <div class="offer-meta">
 
-    noticePeriod:
-      document.getElementById(
-        "noticePeriod"
-      ).value,
+          <div>
+            <span>Offer Letter ID</span>
+            <strong id="offerId">CRO-0000</strong>
+          </div>
 
-    validUntil:
-      document.getElementById(
-        "validUntil"
-      ).value,
+          <div>
+            <span>Date of Issue</span>
+            <strong id="previewOfferDate">—</strong>
+          </div>
 
-    customTerms:
-      document.getElementById(
-        "customTerms"
-      ).value,
+        </div>
 
-    hrName:
-      document.getElementById(
-        "hrName"
-      ).value,
 
-    hrDesignation:
-      document.getElementById(
-        "hrDesignation"
-      ).value,
+        <h1 class="letter-title">
+          OFFER LETTER
+        </h1>
 
-    signature:
-      uploadedSignature
 
-  };
+        <p>
+          Date:
+          <strong id="letterDate">—</strong>
+        </p>
 
 
-  localStorage.setItem(
-    "crodytoOfferLetterData",
-    JSON.stringify(data)
-  );
+        <p>
+          Dear
+          <strong id="previewName">Candidate</strong>,
+        </p>
 
-}
 
+        <p>
+          We are pleased to offer you the position of
+          <strong id="previewPosition">—</strong>
+          with <strong>Crodyto</strong>.
+        </p>
 
-// ==========================================
-// LOAD SAVED DATA
-// ==========================================
 
-function loadSavedData() {
+        <p>
+          You will be joining the
+          <strong id="previewDepartment">—</strong>
+          department as a
+          <strong id="previewEmploymentType">—</strong>.
+        </p>
 
-  const savedData =
-    localStorage.getItem(
-      "crodytoOfferLetterData"
-    );
 
-  if (!savedData) {
-    return;
-  }
+        <!-- EMPLOYMENT SUMMARY -->
 
+        <div class="summary-box">
 
-  const data =
-    JSON.parse(savedData);
+          <h3>Employment Summary</h3>
 
+          <div class="summary-grid">
 
-  Object.keys(data).forEach(
-    function (key) {
+            <div>
+              <span>Position</span>
+              <strong id="summaryPosition">—</strong>
+            </div>
 
-      const element =
-        document.getElementById(key);
+            <div>
+              <span>Employment Type</span>
+              <strong id="summaryEmployment">—</strong>
+            </div>
 
-      if (
-        element &&
-        key !== "signature"
-      ) {
+            <div>
+              <span>Department</span>
+              <strong id="summaryDepartment">—</strong>
+            </div>
 
-        element.value =
-          data[key];
+            <div>
+              <span>Compensation</span>
+              <strong id="summarySalary">—</strong>
+            </div>
 
-      }
+            <div>
+              <span>Joining Date</span>
+              <strong id="summaryJoining">—</strong>
+            </div>
 
-    }
-  );
+            <div>
+              <span>Duration / Probation</span>
+              <strong id="summaryDuration">—</strong>
+            </div>
 
+          </div>
 
-  if (data.signature) {
+        </div>
 
-    uploadedSignature =
-      data.signature;
 
-    const preview =
-      document.getElementById(
-        "signaturePreview"
-      );
+        <h3 class="section-title">
+          1. Employment & Compensation
+        </h3>
 
-    preview.src =
-      uploadedSignature;
+        <p>
+          Your engagement with Crodyto will begin on
+          <strong id="textJoiningDate">—</strong>.
+          Your employment category will be
+          <strong id="textEmploymentType">—</strong>.
+        </p>
 
-    preview.style.display =
-      "block";
+        <p id="paymentParagraph">
+          Compensation details will be mentioned according to the agreed
+          employment terms.
+        </p>
 
-  }
 
+        <h3 class="section-title">
+          2. Work Responsibilities
+        </h3>
 
-  toggleSalaryField();
+        <p>
+          You will be responsible for completing assigned tasks,
+          communicating professionally with the team, maintaining deadlines,
+          and following instructions from your reporting manager.
+        </p>
 
-  generateLetter();
+        <p>
+          You will report directly to
+          <strong id="previewReportingManager">—</strong>.
+        </p>
 
-}
 
+        <div class="page-footer">
+          <span>Crodyto • Confidential</span>
+          <span>Page 1 of 2</span>
+        </div>
 
-// ==========================================
-// CLEAR FORM
-// ==========================================
+      </article>
 
-function clearForm() {
 
-  const inputs =
-    document.querySelectorAll(
-      "input:not([type='file']), textarea"
-    );
 
+      <!-- =========================
+           PAGE 2
+      ========================== -->
 
-  inputs.forEach(
-    function (input) {
+      <article class="offer-page second-page">
 
-      input.value = "";
 
-    }
-  );
+        <div class="letter-header">
 
+          <div class="company-brand">
 
-  document.getElementById(
-    "employmentType"
-  ).value =
-    "Internship";
+            <img
+              src="logo.png"
+              alt="Crodyto"
+              class="letter-logo"
+            >
 
+          </div>
 
-  document.getElementById(
-    "paymentType"
-  ).value =
-    "Paid";
 
+          <div class="company-meta">
 
-  document.getElementById(
-    "workMode"
-  ).value =
-    "Remote";
+            <strong>CRODYTO</strong>
 
+            <span>
+              IT Services & IT Consulting
+            </span>
 
-  signatureUpload.value = "";
+          </div>
 
-  uploadedSignature = "";
+        </div>
 
 
-  const signaturePreview =
-    document.getElementById(
-      "signaturePreview"
-    );
+        <div class="blue-line"></div>
 
-  signaturePreview.src = "";
 
-  signaturePreview.style.display =
-    "none";
+        <h3 class="section-title">
+          3. Working Schedule & Location
+        </h3>
 
 
-  localStorage.removeItem(
-    "crodytoOfferLetterData"
-  );
+        <div class="details-table">
 
+          <div class="table-row">
+            <span>Work Mode</span>
+            <strong id="detailWorkMode">—</strong>
+          </div>
 
-  toggleSalaryField();
+          <div class="table-row">
+            <span>Work Location</span>
+            <strong id="detailLocation">—</strong>
+          </div>
 
-  generateLetter();
+          <div class="table-row">
+            <span>Working Hours</span>
+            <strong id="detailWorkingHours">—</strong>
+          </div>
 
-}
+          <div class="table-row">
+            <span>Working Days</span>
+            <strong id="detailWorkingDays">—</strong>
+          </div>
 
+          <div class="table-row">
+            <span>Notice Period</span>
+            <strong id="detailNoticePeriod">—</strong>
+          </div>
 
-// ==========================================
-// BUTTON EVENTS
-// ==========================================
+        </div>
 
-generateBtn.addEventListener(
-  "click",
-  generateLetter
-);
 
+        <h3 class="section-title">
+          4. Confidentiality & Company Property
+        </h3>
 
-clearBtn.addEventListener(
-  "click",
-  clearForm
-);
+        <p>
+          During your association with Crodyto, you may receive access to
+          confidential information including client information, source code,
+          project files, business documents, credentials, internal systems,
+          and other company resources.
+        </p>
 
+        <p>
+          Such information must not be copied, shared, published, or used for
+          personal or third-party purposes without written authorization.
+          All company property and confidential materials must be returned
+          when your employment or engagement ends.
+        </p>
 
-printBtn.addEventListener(
-  "click",
-  function () {
 
-    window.print();
+        <h3 class="section-title">
+          5. Code of Conduct
+        </h3>
 
-  }
-);
+        <p>
+          You are expected to maintain professional behaviour, respect
+          colleagues and clients, communicate appropriately, protect company
+          information, and follow Crodyto's policies and reasonable
+          instructions.
+        </p>
 
+        <p>
+          Misconduct, repeated negligence, breach of confidentiality,
+          unauthorized use of company resources, or violation of company
+          policies may result in disciplinary action or termination.
+        </p>
 
-// ==========================================
-// INITIALIZATION
-// ==========================================
 
-window.addEventListener(
-  "DOMContentLoaded",
-  function () {
+        <h3 class="section-title">
+          6. Performance & Termination
+        </h3>
 
-    const today =
-      new Date()
-        .toISOString()
-        .split("T")[0];
+        <p>
+          Your performance may be reviewed based on work quality,
+          communication, discipline, responsibility, attendance, and
+          contribution to assigned projects.
+        </p>
 
+        <p>
+          The applicable notice period for this role is
+          <strong id="previewNoticePeriod">—</strong>.
+        </p>
 
-    // Set today's date
 
-    document.getElementById(
-      "offerDate"
-    ).value = today;
+        <!-- ADDITIONAL TERMS -->
 
+        <div class="custom-terms">
 
-    // Setup Paid / Unpaid field
+          <h3>7. Additional Terms</h3>
 
-    toggleSalaryField();
+          <p id="previewCustomTerms">
+            No additional terms have been specified.
+          </p>
 
+        </div>
 
-    // Load previous data
 
-    loadSavedData();
+        <h3 class="section-title">
+          8. Acceptance of Offer
+        </h3>
 
-  }
-);
+        <p>
+          By accepting this offer, you confirm that you have read,
+          understood, and agreed to the terms and conditions mentioned in
+          this offer letter.
+        </p>
+
+
+        <!-- SIGNATURES -->
+
+        <div class="signature-area">
+
+
+          <div class="signature-block">
+
+            <div class="signature-space"></div>
+
+            <div class="signature-line"></div>
+
+            <strong id="candidateNameSignature">
+              Candidate Name
+            </strong>
+
+            <span>Candidate Signature & Date</span>
+
+          </div>
+
+
+
+          <div class="signature-block">
+
+            <div class="signature-image-box">
+
+              <img
+                id="signaturePreview"
+                src=""
+                alt="HR Signature"
+              >
+
+            </div>
+
+            <div class="signature-line"></div>
+
+            <strong id="previewHrName">
+              Authorized Person
+            </strong>
+
+            <span id="previewHrDesignation">
+              HR / Authorized Representative
+            </span>
+
+            <small>For Crodyto</small>
+
+          </div>
+
+        </div>
+
+
+        <div class="acceptance-note">
+
+          This offer remains valid until
+          <strong id="previewValidUntil">—</strong>.
+
+        </div>
+
+
+        <div class="page-footer">
+          <span>Crodyto • Confidential</span>
+          <span>Page 2 of 2</span>
+        </div>
+
+      </article>
+
+    </section>
+
+  </main>
+
+
+  <script src="script.js"></script>
+
+</body>
+</html>
