@@ -1,32 +1,42 @@
-
 const CORRECT_PASSWORD = "741223741223";
+const NEXT_PAGE = "./offer_letter_page.html";
 
-const lockForm = document.getElementById("lockForm");
-const passwordInput = document.getElementById("password");
-const errorMessage = document.getElementById("error");
+document.addEventListener("DOMContentLoaded", function () {
 
-lockForm.addEventListener("submit", function (event) {
-    event.preventDefault();
+    const lockForm = document.getElementById("lockForm");
+    const passwordInput = document.getElementById("password");
+    const errorMessage = document.getElementById("error");
 
-    const enteredPassword = passwordInput.value.trim();
-
-    if (enteredPassword === CORRECT_PASSWORD) {
-
-        // Password correct → redirect to Offer Letter page
-        window.location.href = "offer-letter-page.html";
-
-    } else {
-
-        errorMessage.textContent =
-            "Incorrect password. Please try again.";
-
-        passwordInput.value = "";
-        passwordInput.focus();
-
+    if (!lockForm || !passwordInput || !errorMessage) {
+        alert("Lock page error: Required elements are missing.");
+        return;
     }
-});
 
-window.addEventListener("load", function () {
+    lockForm.addEventListener("submit", function (event) {
+
+        event.preventDefault();
+
+        const enteredPassword = passwordInput.value.trim();
+
+        if (enteredPassword === CORRECT_PASSWORD) {
+
+            errorMessage.textContent = "Access granted...";
+
+            window.location.replace(NEXT_PAGE);
+
+        } else {
+
+            errorMessage.textContent =
+                "Incorrect password. Please try again.";
+
+            passwordInput.value = "";
+
+            passwordInput.focus();
+        }
+
+    });
+
     passwordInput.focus();
+
 });
 
