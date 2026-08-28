@@ -1,5 +1,5 @@
 const CORRECT_PASSWORD = "741223741223";
-const NEXT_PAGE = "./offer_letter_page.html";
+const NEXT_PAGE = "offer_letter_page.html";
 
 document.addEventListener("DOMContentLoaded", function () {
 
